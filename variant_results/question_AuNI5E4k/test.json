@@ -1,0 +1,4 @@
+{
+  "question": "integrate(6*x/(x**4+1), x)",
+  "ground_truth_solution": null
+}

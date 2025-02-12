@@ -1,0 +1,4 @@
+{
+  "question": "integrate(log(x**2+1)/(x**2+1), x)",
+  "ground_truth_solution": null
+}

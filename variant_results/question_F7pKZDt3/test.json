@@ -1,0 +1,4 @@
+{
+  "question": "integrate((x+2)/(x**2+2*x+2)+x^3, x)",
+  "ground_truth_solution": "x**4/4 + log(x**2 + 2*x + 2)/2 + atan(x + 1)"
+}

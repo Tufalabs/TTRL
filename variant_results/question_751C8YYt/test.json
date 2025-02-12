@@ -1,0 +1,4 @@
+{
+  "question": "integrate(1/(x**2+4*x+5), x)",
+  "ground_truth_solution": "atan(x + 2)"
+}

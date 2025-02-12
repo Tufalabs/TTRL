@@ -1,0 +1,4 @@
+{
+  "question": "integrate(exp(-2*x)*sin(x), x)",
+  "ground_truth_solution": "-2*exp(-2*x)*sin(x)/5 - exp(-2*x)*cos(x)/5"
+}

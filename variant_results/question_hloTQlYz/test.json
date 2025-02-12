@@ -1,0 +1,4 @@
+{
+  "question": "integrate((x-1)/sqrt(x**2+1), x)",
+  "ground_truth_solution": "sqrt(x**2 + 1) - asinh(x)"
+}

@@ -1,0 +1,4 @@
+{
+  "question": "integrate(11*x**3/(x**2+1)**2, x)",
+  "ground_truth_solution": null
+}

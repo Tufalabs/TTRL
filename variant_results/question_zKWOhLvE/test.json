@@ -1,0 +1,4 @@
+{
+  "question": "integrate(8*exp(2*x)*sin(3*x), x)",
+  "ground_truth_solution": null
+}

@@ -1,0 +1,4 @@
+{
+  "question": "integrate(x/(sqrt(x**2+4)), x)",
+  "ground_truth_solution": null
+}

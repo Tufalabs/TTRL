@@ -1,0 +1,4 @@
+{
+  "question": "integrate(4*x**3/(1+x**4), x)",
+  "ground_truth_solution": null
+}

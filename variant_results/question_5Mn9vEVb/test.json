@@ -1,0 +1,4 @@
+{
+  "question": "integrate(12*sinh(x)**2, x)",
+  "ground_truth_solution": "6*x*sinh(x)**2 - 6*x*cosh(x)**2 + 6*sinh(x)*cosh(x)"
+}

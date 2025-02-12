@@ -1,0 +1,4 @@
+{
+  "question": "integrate(exp(x)*sinh(x), x)",
+  "ground_truth_solution": "x*exp(x)*sinh(x)/2 - x*exp(x)*cosh(x)/2 + exp(x)*cosh(x)/2"
+}

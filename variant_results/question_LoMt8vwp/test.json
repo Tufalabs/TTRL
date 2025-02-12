@@ -1,0 +1,4 @@
+{
+  "question": "integrate((x-1)/(x**2+3), x)",
+  "ground_truth_solution": "log(x**2 + 3)/2 - sqrt(3)*atan(sqrt(3)*x/3)/3"
+}

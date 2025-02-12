@@ -1,0 +1,4 @@
+{
+  "question": "integrate(sin(x)**2*cos(x)+x^12, x)",
+  "ground_truth_solution": null
+}

@@ -1,0 +1,4 @@
+{
+  "question": "integrate(x*atan(x), x)",
+  "ground_truth_solution": null
+}
