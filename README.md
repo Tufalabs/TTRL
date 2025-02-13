@@ -31,7 +31,7 @@
 3. For each question, run GRPO using CustomTinyZero and the numerical_integration reward function
     a. Pass a reward signal to the RL algorithm (in reward function)
     b. Update the policy
-4. Do pass@1, pass@5 and pass@10 evaluation for the final test question
+4. Once done, use model to do test on actual question (with pass@1, pass@5 and pass@10 evaluation)
 5. Roll back to the original model
 
 ## Difference between TTRL and RL training method

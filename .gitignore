@@ -8,3 +8,4 @@ __pycache__
 *.pyz
 *.pywz
 .ipynb_checkpoints
+checkpoints/
