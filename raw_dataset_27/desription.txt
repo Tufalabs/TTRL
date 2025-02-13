@@ -12,5 +12,6 @@ Average number of harder variations per file: 40.0
 Files with easier variations: 27 / 27
 Files with equivalent variations: 27 / 27
 Files with harder variations: 7 / 27
+Files with ground truth: 11 / 27
 
 - Akira

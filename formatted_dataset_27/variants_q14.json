@@ -1,0 +1,2576 @@
+[
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 0,
+            "question_id": "integrate(1/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(x/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(x/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 1,
+            "question_id": "integrate(x/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(sec(x)**2)/(sec(x)**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(sec(x)**2)/(sec(x)**2), x)"
+        },
+        "extra_info": {
+            "question_index": 2,
+            "question_id": "integrate(log(sec(x)**2)/(sec(x)**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1/(x**2 + 1)**2, x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1/(x**2 + 1)**2, x)"
+        },
+        "extra_info": {
+            "question_index": 3,
+            "question_id": "integrate(1/(x**2 + 1)**2, x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1/(x**2 + 1)**(1/2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1/(x**2 + 1)**(1/2), x)"
+        },
+        "extra_info": {
+            "question_index": 4,
+            "question_id": "integrate(1/(x**2 + 1)**(1/2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(2*log(x**2 + 1)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(2*log(x**2 + 1)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 5,
+            "question_id": "integrate(2*log(x**2 + 1)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + x)/(1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + x)/(1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 6,
+            "question_id": "integrate(log(1 + x)/(1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1/(1+x), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1/(1+x), x)"
+        },
+        "extra_info": {
+            "question_index": 7,
+            "question_id": "integrate(1/(1+x), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1/x, x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1/x, x)"
+        },
+        "extra_info": {
+            "question_index": 8,
+            "question_id": "integrate(1/x, x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2 + 1)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2 + 1)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 9,
+            "question_id": "integrate(log(x**2 + 1)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate((x**2)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate((x**2)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 10,
+            "question_id": "integrate((x**2)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(arctan(x), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(arctan(x), x)"
+        },
+        "extra_info": {
+            "question_index": 11,
+            "question_id": "integrate(arctan(x), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 12,
+            "question_id": "integrate(log(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1/(x**2+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1/(x**2+1), x)"
+        },
+        "extra_info": {
+            "question_index": 13,
+            "question_id": "integrate(1/(x**2+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(x/(x**2+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(x/(x**2+1), x)"
+        },
+        "extra_info": {
+            "question_index": 14,
+            "question_id": "integrate(x/(x**2+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(exp(log(x**2+1))/(x**2+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(exp(log(x**2+1))/(x**2+1), x)"
+        },
+        "extra_info": {
+            "question_index": 15,
+            "question_id": "integrate(exp(log(x**2+1))/(x**2+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(0.5/(x**2+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(0.5/(x**2+1), x)"
+        },
+        "extra_info": {
+            "question_index": 16,
+            "question_id": "integrate(0.5/(x**2+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1/(x+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1/(x+1), x)"
+        },
+        "extra_info": {
+            "question_index": 17,
+            "question_id": "integrate(1/(x+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(x, x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(x, x)"
+        },
+        "extra_info": {
+            "question_index": 18,
+            "question_id": "integrate(x, x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1/(1 + 1/x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1/(1 + 1/x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 19,
+            "question_id": "integrate(1/(1 + 1/x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1/(1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1/(1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 20,
+            "question_id": "integrate(1/(1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + x**2)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + x**2)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 21,
+            "question_id": "integrate(log(1 + x**2)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(e**(log(x**2+1))), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(e**(log(x**2+1))), x)"
+        },
+        "extra_info": {
+            "question_index": 22,
+            "question_id": "integrate(log(e**(log(x**2+1))), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1/(x**2 + 1) * (log(2) - log(1)), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1/(x**2 + 1) * (log(2) - log(1)), x)"
+        },
+        "extra_info": {
+            "question_index": 23,
+            "question_id": "integrate(1/(x**2 + 1) * (log(2) - log(1)), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1/(a**2 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1/(a**2 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 24,
+            "question_id": "integrate(1/(a**2 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1/(x + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1/(x + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 25,
+            "question_id": "integrate(1/(x + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log((x**2 + 1)/1)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log((x**2 + 1)/1)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 26,
+            "question_id": "integrate(log((x**2 + 1)/1)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(0.25 + 1)/(0.25 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(0.25 + 1)/(0.25 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 27,
+            "question_id": "integrate(log(0.25 + 1)/(0.25 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate((1/2)*log(x**2 + 1)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate((1/2)*log(x**2 + 1)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 28,
+            "question_id": "integrate((1/2)*log(x**2 + 1)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + tan(x)**2)/(1 + tan(x)**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + tan(x)**2)/(1 + tan(x)**2), x)"
+        },
+        "extra_info": {
+            "question_index": 29,
+            "question_id": "integrate(log(1 + tan(x)**2)/(1 + tan(x)**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(3/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(3/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 30,
+            "question_id": "integrate(3/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2 + 1)/(2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2 + 1)/(2), x)"
+        },
+        "extra_info": {
+            "question_index": 31,
+            "question_id": "integrate(log(x**2 + 1)/(2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(A/(x**2 + 1) + B/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(A/(x**2 + 1) + B/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 32,
+            "question_id": "integrate(A/(x**2 + 1) + B/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(0, x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(0, x)"
+        },
+        "extra_info": {
+            "question_index": 33,
+            "question_id": "integrate(0, x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x + 1)/(x + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x + 1)/(x + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 34,
+            "question_id": "integrate(log(x + 1)/(x + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(2)/(2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(2)/(2), x)"
+        },
+        "extra_info": {
+            "question_index": 35,
+            "question_id": "integrate(log(2)/(2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate((x**2)/(x**2+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate((x**2)/(x**2+1), x)"
+        },
+        "extra_info": {
+            "question_index": 36,
+            "question_id": "integrate((x**2)/(x**2+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x+1)/(x+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x+1)/(x+1), x)"
+        },
+        "extra_info": {
+            "question_index": 37,
+            "question_id": "integrate(log(x+1)/(x+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x)/(x), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x)/(x), x)"
+        },
+        "extra_info": {
+            "question_index": 38,
+            "question_id": "integrate(log(x)/(x), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(sqrt(x)/(x**2+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(sqrt(x)/(x**2+1), x)"
+        },
+        "extra_info": {
+            "question_index": 39,
+            "question_id": "integrate(sqrt(x)/(x**2+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + x**2) / (1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + x**2) / (1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 40,
+            "question_id": "integrate(log(1 + x**2) / (1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + (x**2)/1)*1/(1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + (x**2)/1)*1/(1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 41,
+            "question_id": "integrate(log(1 + (x**2)/1)*1/(1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1) + log(1 + x**2)/(1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1) + log(1 + x**2)/(1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 42,
+            "question_id": "integrate(log(1) + log(1 + x**2)/(1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(exp(log(x**2 + 1))/(1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(exp(log(x**2 + 1))/(1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 43,
+            "question_id": "integrate(exp(log(x**2 + 1))/(1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(x**2/(x**2+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(x**2/(x**2+1), x)"
+        },
+        "extra_info": {
+            "question_index": 44,
+            "question_id": "integrate(x**2/(x**2+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate((1-x**4/4)/(x**2+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate((1-x**4/4)/(x**2+1), x)"
+        },
+        "extra_info": {
+            "question_index": 45,
+            "question_id": "integrate((1-x**4/4)/(x**2+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1)/(x**2+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1)/(x**2+1), x)"
+        },
+        "extra_info": {
+            "question_index": 46,
+            "question_id": "integrate(log(1)/(x**2+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2) + log(1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2) + log(1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 47,
+            "question_id": "integrate(log(x**2) + log(1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x) + log(1 + 1/x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x) + log(1 + 1/x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 48,
+            "question_id": "integrate(log(x) + log(1 + 1/x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate((x**2)/(1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate((x**2)/(1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 49,
+            "question_id": "integrate((x**2)/(1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(atan(x)/(x**2+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(atan(x)/(x**2+1), x)"
+        },
+        "extra_info": {
+            "question_index": 50,
+            "question_id": "integrate(atan(x)/(x**2+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1/(x**2+1)**2, x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1/(x**2+1)**2, x)"
+        },
+        "extra_info": {
+            "question_index": 51,
+            "question_id": "integrate(1/(x**2+1)**2, x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(2/(x**2+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(2/(x**2+1), x)"
+        },
+        "extra_info": {
+            "question_index": 52,
+            "question_id": "integrate(2/(x**2+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(sqrt(x**2 + 1))/(x**2+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(sqrt(x**2 + 1))/(x**2+1), x)"
+        },
+        "extra_info": {
+            "question_index": 53,
+            "question_id": "integrate(log(sqrt(x**2 + 1))/(x**2+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2 + 1)/(1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2 + 1)/(1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 54,
+            "question_id": "integrate(log(x**2 + 1)/(1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x + 1)/(1 + x), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x + 1)/(1 + x), x)"
+        },
+        "extra_info": {
+            "question_index": 55,
+            "question_id": "integrate(log(x + 1)/(1 + x), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(2*log(1 + x**2)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(2*log(1 + x**2)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 56,
+            "question_id": "integrate(2*log(1 + x**2)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate((x**2)/((x**2 + 1)**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate((x**2)/((x**2 + 1)**2), x)"
+        },
+        "extra_info": {
+            "question_index": 57,
+            "question_id": "integrate((x**2)/((x**2 + 1)**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2 + 1) - 1/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2 + 1) - 1/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 58,
+            "question_id": "integrate(log(x**2 + 1) - 1/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 59,
+            "question_id": "integrate(log(1)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log((-x)**2 + 1)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log((-x)**2 + 1)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 60,
+            "question_id": "integrate(log((-x)**2 + 1)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(atan(x)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(atan(x)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 61,
+            "question_id": "integrate(atan(x)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + x**2)/(1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + x**2)/(1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 62,
+            "question_id": "integrate(log(1 + x**2)/(1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 63,
+            "question_id": "integrate(log(1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + x), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + x), x)"
+        },
+        "extra_info": {
+            "question_index": 64,
+            "question_id": "integrate(log(1 + x), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(x/(1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(x/(1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 65,
+            "question_id": "integrate(x/(1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(x ** 2 / (x ** 2 + 1)**2, x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(x ** 2 / (x ** 2 + 1)**2, x)"
+        },
+        "extra_info": {
+            "question_index": 66,
+            "question_id": "integrate(x ** 2 / (x ** 2 + 1)**2, x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1), x)"
+        },
+        "extra_info": {
+            "question_index": 67,
+            "question_id": "integrate(log(1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate((x**2 / (x**2 + 1) - 1 / (x**2 + 1)) + x**2/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate((x**2 / (x**2 + 1) - 1 / (x**2 + 1)) + x**2/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 68,
+            "question_id": "integrate((x**2 / (x**2 + 1) - 1 / (x**2 + 1)) + x**2/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(exp(log(x**2 + 1))/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(exp(log(x**2 + 1))/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 69,
+            "question_id": "integrate(exp(log(x**2 + 1))/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(0.5*x**2, x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(0.5*x**2, x)"
+        },
+        "extra_info": {
+            "question_index": 70,
+            "question_id": "integrate(0.5*x**2, x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + x**2)/2, x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + x**2)/2, x)"
+        },
+        "extra_info": {
+            "question_index": 71,
+            "question_id": "integrate(log(1 + x**2)/2, x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate((x**2 - x**4/3 + x**6/5)/(1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate((x**2 - x**4/3 + x**6/5)/(1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 72,
+            "question_id": "integrate((x**2 - x**4/3 + x**6/5)/(1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(x**2/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(x**2/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 73,
+            "question_id": "integrate(x**2/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(sqrt(1/(1 + x**2)), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(sqrt(1/(1 + x**2)), x)"
+        },
+        "extra_info": {
+            "question_index": 74,
+            "question_id": "integrate(sqrt(1/(1 + x**2)), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1) + log(x**2 + 1)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1) + log(x**2 + 1)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 75,
+            "question_id": "integrate(log(1) + log(x**2 + 1)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x), x)"
+        },
+        "extra_info": {
+            "question_index": 76,
+            "question_id": "integrate(log(x), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1, x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1, x)"
+        },
+        "extra_info": {
+            "question_index": 77,
+            "question_id": "integrate(1, x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(x + 1, x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(x + 1, x)"
+        },
+        "extra_info": {
+            "question_index": 78,
+            "question_id": "integrate(x + 1, x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(atan(x), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(atan(x), x)"
+        },
+        "extra_info": {
+            "question_index": 79,
+            "question_id": "integrate(atan(x), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1+x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1+x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 80,
+            "question_id": "integrate(log(1+x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1/(1+x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1/(1+x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 81,
+            "question_id": "integrate(1/(1+x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1+x)/(1+x), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1+x)/(1+x), x)"
+        },
+        "extra_info": {
+            "question_index": 82,
+            "question_id": "integrate(log(1+x)/(1+x), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1+x**2)/(1+x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1+x**2)/(1+x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 83,
+            "question_id": "integrate(log(1+x**2)/(1+x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(sum([(-1)**n * (x**2)**n / (n + 1) for n in range(6)]), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(sum([(-1)**n * (x**2)**n / (n + 1) for n in range(6)]), x)"
+        },
+        "extra_info": {
+            "question_index": 84,
+            "question_id": "integrate(sum([(-1)**n * (x**2)**n / (n + 1) for n in range(6)]), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(2)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(2)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 85,
+            "question_id": "integrate(log(2)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(C*(x**2 + 1)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(C*(x**2 + 1)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 86,
+            "question_id": "integrate(C*(x**2 + 1)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(approximation_polynomial, x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(approximation_polynomial, x)"
+        },
+        "extra_info": {
+            "question_index": 87,
+            "question_id": "integrate(approximation_polynomial, x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(exp(x**2 + 1))/(exp(x**2 + 1)), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(exp(x**2 + 1))/(exp(x**2 + 1)), x)"
+        },
+        "extra_info": {
+            "question_index": 88,
+            "question_id": "integrate(log(exp(x**2 + 1))/(exp(x**2 + 1)), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x + 2)/((x + 2)), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x + 2)/((x + 2)), x)"
+        },
+        "extra_info": {
+            "question_index": 89,
+            "question_id": "integrate(log(x + 2)/((x + 2)), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate((1/(x**2 + 1)), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate((1/(x**2 + 1)), x)"
+        },
+        "extra_info": {
+            "question_index": 90,
+            "question_id": "integrate((1/(x**2 + 1)), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(abs(x**2 + 1))/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(abs(x**2 + 1))/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 91,
+            "question_id": "integrate(log(abs(x**2 + 1))/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2 + 1) / (x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2 + 1) / (x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 92,
+            "question_id": "integrate(log(x**2 + 1) / (x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(sec(x)**2) / sec(x)**2, x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(sec(x)**2) / sec(x)**2, x)"
+        },
+        "extra_info": {
+            "question_index": 93,
+            "question_id": "integrate(log(sec(x)**2) / sec(x)**2, x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(3*x**2 + 3) / (3*x**2 + 3), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(3*x**2 + 3) / (3*x**2 + 3), x)"
+        },
+        "extra_info": {
+            "question_index": 94,
+            "question_id": "integrate(log(3*x**2 + 3) / (3*x**2 + 3), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2) / (x**2 + 1) + log(1) / (x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2) / (x**2 + 1) + log(1) / (x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 95,
+            "question_id": "integrate(log(x**2) / (x**2 + 1) + log(1) / (x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(atan(x) / (x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(atan(x) / (x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 96,
+            "question_id": "integrate(atan(x) / (x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(exp(x**2) + 1) / (exp(x**2) + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(exp(x**2) + 1) / (exp(x**2) + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 97,
+            "question_id": "integrate(log(exp(x**2) + 1) / (exp(x**2) + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + x**2)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + x**2)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 98,
+            "question_id": "integrate(log(1 + x**2)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(1/(x**2 + 1) * log(exp(log(x**2 + 1))), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(1/(x**2 + 1) * log(exp(log(x**2 + 1))), x)"
+        },
+        "extra_info": {
+            "question_index": 99,
+            "question_id": "integrate(1/(x**2 + 1) * log(exp(log(x**2 + 1))), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(2) + 2 * log(x)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(2) + 2 * log(x)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 100,
+            "question_id": "integrate(log(2) + 2 * log(x)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2 + 1)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2 + 1)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 101,
+            "question_id": "integrate(log(x**2 + 1)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate((log(x**2 + 1) + x**2)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate((log(x**2 + 1) + x**2)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 102,
+            "question_id": "integrate((log(x**2 + 1) + x**2)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(sec(x)**2)/(sec(x)**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(sec(x)**2)/(sec(x)**2), x)"
+        },
+        "extra_info": {
+            "question_index": 103,
+            "question_id": "integrate(log(sec(x)**2)/(sec(x)**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 104,
+            "question_id": "integrate(log(1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(exp(0) + x**2)/((exp(0) + x**2)), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(exp(0) + x**2)/((exp(0) + x**2)), x)"
+        },
+        "extra_info": {
+            "question_index": 105,
+            "question_id": "integrate(log(exp(0) + x**2)/((exp(0) + x**2)), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log((x**2 + 1)/(1)), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log((x**2 + 1)/(1)), x)"
+        },
+        "extra_info": {
+            "question_index": 106,
+            "question_id": "integrate(log((x**2 + 1)/(1)), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + (x + 0)**2)/(1 + (x + 0)**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + (x + 0)**2)/(1 + (x + 0)**2), x)"
+        },
+        "extra_info": {
+            "question_index": 107,
+            "question_id": "integrate(log(1 + (x + 0)**2)/(1 + (x + 0)**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log((-x)**2+1)/(x**2+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log((-x)**2+1)/(x**2+1), x)"
+        },
+        "extra_info": {
+            "question_index": 108,
+            "question_id": "integrate(log((-x)**2+1)/(x**2+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2 + 1)/(x**2 + 2*(1/2)), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2 + 1)/(x**2 + 2*(1/2)), x)"
+        },
+        "extra_info": {
+            "question_index": 109,
+            "question_id": "integrate(log(x**2 + 1)/(x**2 + 2*(1/2)), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + x**2)/(1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + x**2)/(1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 110,
+            "question_id": "integrate(log(1 + x**2)/(1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + (x**2))/(1 + (x**2)), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + (x**2))/(1 + (x**2)), x)"
+        },
+        "extra_info": {
+            "question_index": 111,
+            "question_id": "integrate(log(1 + (x**2))/(1 + (x**2)), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(sqrt(x**2 + 1)**2)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(sqrt(x**2 + 1)**2)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 112,
+            "question_id": "integrate(log(sqrt(x**2 + 1)**2)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate((x**2 - x**4/2 + x**6/3)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate((x**2 - x**4/2 + x**6/3)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 113,
+            "question_id": "integrate((x**2 - x**4/2 + x**6/3)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + tan(x)**2)/(1 + tan(x)**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + tan(x)**2)/(1 + tan(x)**2), x)"
+        },
+        "extra_info": {
+            "question_index": 114,
+            "question_id": "integrate(log(1 + tan(x)**2)/(1 + tan(x)**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(0.5*log(2*x**2 + 2)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(0.5*log(2*x**2 + 2)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 115,
+            "question_id": "integrate(0.5*log(2*x**2 + 2)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate((1/2) * (log(x**2 + 1)/(x**2 + 1) + log(1) - log(1/(x**2 + 1))), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate((1/2) * (log(x**2 + 1)/(x**2 + 1) + log(1) - log(1/(x**2 + 1))), x)"
+        },
+        "extra_info": {
+            "question_index": 116,
+            "question_id": "integrate((1/2) * (log(x**2 + 1)/(x**2 + 1) + log(1) - log(1/(x**2 + 1))), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + x**2) - log(1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + x**2) - log(1), x)"
+        },
+        "extra_info": {
+            "question_index": 117,
+            "question_id": "integrate(log(1 + x**2) - log(1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + (x**2 - 1))/(1 + (x**2 - 1)), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + (x**2 - 1))/(1 + (x**2 - 1)), x)"
+        },
+        "extra_info": {
+            "question_index": 118,
+            "question_id": "integrate(log(1 + (x**2 - 1))/(1 + (x**2 - 1)), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + tanh(x) ** 2) / (1 + tanh(x) ** 2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + tanh(x) ** 2) / (1 + tanh(x) ** 2), x)"
+        },
+        "extra_info": {
+            "question_index": 119,
+            "question_id": "integrate(log(1 + tanh(x) ** 2) / (1 + tanh(x) ** 2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log((x ** 2 + 1) / 1) / (x ** 2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log((x ** 2 + 1) / 1) / (x ** 2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 120,
+            "question_id": "integrate(log((x ** 2 + 1) / 1) / (x ** 2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(|x + i|**2) / |x + i|**2, x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(|x + i|**2) / |x + i|**2, x)"
+        },
+        "extra_info": {
+            "question_index": 121,
+            "question_id": "integrate(log(|x + i|**2) / |x + i|**2, x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1/(x**2 + 1) + 1) / (x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1/(x**2 + 1) + 1) / (x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 122,
+            "question_id": "integrate(log(1/(x**2 + 1) + 1) / (x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2 + 1) * (x**2 + 1)**(-1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2 + 1) * (x**2 + 1)**(-1), x)"
+        },
+        "extra_info": {
+            "question_index": 123,
+            "question_id": "integrate(log(x**2 + 1) * (x**2 + 1)**(-1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2 + 1) / (d/dx(x**2 + 1)), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2 + 1) / (d/dx(x**2 + 1)), x)"
+        },
+        "extra_info": {
+            "question_index": 124,
+            "question_id": "integrate(log(x**2 + 1) / (d/dx(x**2 + 1)), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + x**2) * (1/(1 + x**2)), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + x**2) * (1/(1 + x**2)), x)"
+        },
+        "extra_info": {
+            "question_index": 125,
+            "question_id": "integrate(log(1 + x**2) * (1/(1 + x**2)), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(exp(log(x**2 + 1)))/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(exp(log(x**2 + 1)))/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 126,
+            "question_id": "integrate(log(exp(log(x**2 + 1)))/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(atan(x)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(atan(x)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 127,
+            "question_id": "integrate(atan(x)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2 + 1) * 1/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2 + 1) * 1/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 128,
+            "question_id": "integrate(log(x**2 + 1) * 1/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2+1)/(x**2+1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2+1)/(x**2+1), x)"
+        },
+        "extra_info": {
+            "question_index": 129,
+            "question_id": "integrate(log(x**2+1)/(x**2+1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(diff(log(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(diff(log(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 130,
+            "question_id": "integrate(diff(log(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log((x + 1)**2)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log((x + 1)**2)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 131,
+            "question_id": "integrate(log((x + 1)**2)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(numpy.log(x**2 + 1)/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(numpy.log(x**2 + 1)/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 132,
+            "question_id": "integrate(numpy.log(x**2 + 1)/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + (x**2)/(2))/(1 + (x**2)/(2)), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + (x**2)/(2))/(1 + (x**2)/(2)), x)"
+        },
+        "extra_info": {
+            "question_index": 133,
+            "question_id": "integrate(log(1 + (x**2)/(2))/(1 + (x**2)/(2)), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(2*log(sqrt(x**2 + 1))/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(2*log(sqrt(x**2 + 1))/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 134,
+            "question_id": "integrate(2*log(sqrt(x**2 + 1))/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(exp(log(x**2 + 1))/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(exp(log(x**2 + 1))/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 135,
+            "question_id": "integrate(exp(log(x**2 + 1))/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(x**2/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(x**2/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 136,
+            "question_id": "integrate(x**2/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(2*(x**2 + 1))/2/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(2*(x**2 + 1))/2/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 137,
+            "question_id": "integrate(log(2*(x**2 + 1))/2/(x**2 + 1), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2 + 1)/(x**2 + 1 + 0.0001), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2 + 1)/(x**2 + 1 + 0.0001), x)"
+        },
+        "extra_info": {
+            "question_index": 138,
+            "question_id": "integrate(log(x**2 + 1)/(x**2 + 1 + 0.0001), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate((x**2)/(1 + x**2) + O(x**4), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate((x**2)/(1 + x**2) + O(x**4), x)"
+        },
+        "extra_info": {
+            "question_index": 139,
+            "question_id": "integrate((x**2)/(1 + x**2) + O(x**4), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(x**2 + 1)/((1 + x**2)/2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(x**2 + 1)/((1 + x**2)/2), x)"
+        },
+        "extra_info": {
+            "question_index": 140,
+            "question_id": "integrate(log(x**2 + 1)/((1 + x**2)/2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(log(1 + x**2) - log(1) / (1 + x**2), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(log(1 + x**2) - log(1) / (1 + x**2), x)"
+        },
+        "extra_info": {
+            "question_index": 141,
+            "question_id": "integrate(log(1 + x**2) - log(1) / (1 + x**2), x)"
+        }
+    },
+    {
+        "data_source": "integration_numeric",
+        "prompt": [
+            {
+                "role": "user",
+                "content": "integrate(ln(exp(log(x**2 + 1)))/(x**2 + 1), x)\nSolve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+1/3*x^3 </answer> wrapped in <answer> and </answer> tags. Show your full working out before solving, don't include any constants of integration."
+            }
+        ],
+        "ability": "integration",
+        "reward_model": {
+            "style": "rule",
+            "ground_truth": "integrate(ln(exp(log(x**2 + 1)))/(x**2 + 1), x)"
+        },
+        "extra_info": {
+            "question_index": 142,
+            "question_id": "integrate(ln(exp(log(x**2 + 1)))/(x**2 + 1), x)"
+        }
+    }
+]
