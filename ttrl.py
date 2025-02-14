@@ -64,6 +64,7 @@ def main(path_to_questions: str, parquet_output_path: str, model_dir: str, max_n
         responses = []
         
         # Generate responses with base model
+        print("Generating responses with base model")
         base_responses = []
         base_correct_by_pass = {p: 0 for p in passes}
         
@@ -81,6 +82,7 @@ def main(path_to_questions: str, parquet_output_path: str, model_dir: str, max_n
                     break
                     
         # Generate responses with RL model
+        print("Generating responses with RL model")
         rl_responses = []
         rl_correct_by_pass = {p: 0 for p in passes}
         
@@ -174,6 +176,6 @@ if __name__ == "__main__":
     MODEL_DIR = "meta-llama/Llama-3.2-3B-Instruct"
     # MODEL_DIR = "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
     MAX_NEW_TOKENS = 2024
-    PROJECT_NAME = "verl_grpo_ttrl_2"
+    PROJECT_NAME = "verl_grpo_ttrl_4"
     
     main(path_to_questions=PATH_TO_QUESTIONS, parquet_output_path=PARQUET_OUTPUT_PATH, model_dir=MODEL_DIR, max_new_tokens=MAX_NEW_TOKENS, project_name=PROJECT_NAME)

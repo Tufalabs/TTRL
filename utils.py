@@ -65,6 +65,11 @@ def run_inference(
     # Clean up prompt from response
     response = response[len(full_prompt):].strip()
 
+    # Clean up GPU memory
+    del model
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
     return response
 
 # Timeout exception for integration evaluation
@@ -227,8 +232,8 @@ def variants_to_parquet(data, output_path: str, question_id: str) -> None:
     samples = []
     # Define an instruction for the incorrect questions.
     instruction_following = (
-        "Solve the aforementioned integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  \\boxed{cos(x**2)+ ln(x)+(1/3)*x**3} "
-        "wrapped in a \\boxed{} tag. Show your full working out before solving, don't include any constants of integration."
+            "Solve the aforementioned integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+(1/3)*x**3</answer> "
+            "wrapped in a <answer> tags. Show your full working out before solving, don't include any constants of integration. DO NOT OUTPUT IN LATEX FORMAT. OUTPUT IN SYMPY. don't output a code solution though show your working out in text just final <answer> in sympy"
     )
 
     # Loop over each incorrect question.
@@ -298,14 +303,14 @@ def run_rl(model_dir: str, train_parquet_path: str, project_name: str, experimen
         f"data.train_files={train_parquet_path}",
         f"data.val_files={train_parquet_path}",
         "data.train_batch_size=32",
-        "data.val_batch_size=32", 
+        "data.val_batch_size=16", 
         "data.max_prompt_length=4048",
         f"data.max_response_length={max_new_tokens}",
         f"actor_rollout_ref.model.path={base_model}",
         "actor_rollout_ref.actor.optim.lr=1e-6",
         "actor_rollout_ref.model.use_remove_padding=True",
-        "actor_rollout_ref.actor.ppo_mini_batch_size=16",
-        "actor_rollout_ref.actor.ppo_micro_batch_size=16",
+        "actor_rollout_ref.actor.ppo_mini_batch_size=8",
+        "actor_rollout_ref.actor.ppo_micro_batch_size=8",
         "actor_rollout_ref.actor.use_dynamic_bsz=True",
         "actor_rollout_ref.actor.ppo_max_token_len_per_gpu=24000",
         "critic.ppo_max_token_len_per_gpu=16192",
@@ -352,6 +357,10 @@ def run_rl(model_dir: str, train_parquet_path: str, project_name: str, experimen
             f.buffer.write(line)
     
     last_checkpoint_path = os.path.join(checkpoint_dir, "actor")
+
+    # Clean up GPU memory
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
         
     return last_checkpoint_path
     
