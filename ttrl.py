@@ -39,7 +39,8 @@ def main(path_to_questions: str, parquet_output_path: str, model_dir: str, max_n
     for q_id, question_data in enumerate(data):
         variants_to_parquet(data=question_data, output_path=parquet_output_path, question_id=q_id)
         print(f"Saved variants for question {q_id} to {parquet_output_path}/variants_q{q_id}.parquet and {parquet_output_path}/variants_q{q_id}.json")
-    
+        print(f"Saved val test of question pass@16 {q_id} to {parquet_output_path}/test_q{q_id}.parquet and {parquet_output_path}/test_q{q_id}.json")
+
     num_correct = 0
     num_total = len(data)
     results = [] 
@@ -48,13 +49,10 @@ def main(path_to_questions: str, parquet_output_path: str, model_dir: str, max_n
     for q_id, question_data in enumerate(data):
         print(f"RUNNING GRPO FOR QUESTION {q_id}")
         experiment_name = f"llama3.2_3b_ttrl_integration_q{q_id}"
-        last_checkpoint_path = run_rl(model_dir=model_dir, train_parquet_path=f"{parquet_output_path}/variants_q{q_id}.parquet", project_name=project_name, experiment_name=experiment_name, max_new_tokens=max_new_tokens)
+        last_checkpoint_path = run_rl(model_dir=model_dir, train_parquet_path=f"{parquet_output_path}/variants_q{q_id}.parquet", test_parquet_path=f"{parquet_output_path}/test_q{q_id}.parquet", project_name=project_name, experiment_name=experiment_name, max_new_tokens=max_new_tokens)
         print(f"Last checkpoint path: {last_checkpoint_path}")
         
-        instruction_following = (
-            "Solve the aforementioned integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+(1/3)*x**3</answer> "
-            "wrapped in a <answer> tags. Show your full working out before solving, don't include any constants of integration. DO NOT OUTPUT IN LATEX FORMAT. OUTPUT IN SYMPY. don't output a code solution though show your working out in text just final <answer> in sympy"
-        )
+        instruction_following = "Solve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+(1/3)*x**3</answer> wrapped in a <answer> tags. Importantly, put * between terms you want to multiply! Show your full working out before solving, don't include any constants of integration. DO NOT OUTPUT IN LATEX FORMAT. OUTPUT IN SYMPY in <answer> tags."
         prompt = f"{question_data['question']}\n{instruction_following}"
         print("--------------------------------")
         print(f"Question {q_id}")
@@ -177,11 +175,11 @@ def main(path_to_questions: str, parquet_output_path: str, model_dir: str, max_n
         json.dump(results_json, f, indent=4)
 
 if __name__ == "__main__":
-    PATH_TO_QUESTIONS = '/home/ubuntu/o1-replication/TTRL/raw_dataset_27/ttrl27.json'
-    PARQUET_OUTPUT_PATH = '/home/ubuntu/o1-replication/TTRL/formatted_dataset_27'
+    PATH_TO_QUESTIONS = '/home/ubuntu/o1-replication/TTRL/test_trees/ttrl.json'
+    PARQUET_OUTPUT_PATH = '/home/ubuntu/o1-replication/TTRL/test_trees_parquet'
     MODEL_DIR = "meta-llama/Llama-3.2-3B-Instruct"
     # MODEL_DIR = "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
-    MAX_NEW_TOKENS = 2024
-    PROJECT_NAME = "verl_grpo_ttrl_7"
+    MAX_NEW_TOKENS = 1024
+    PROJECT_NAME = "verl_grpo_ttrl_trees"
     
     main(path_to_questions=PATH_TO_QUESTIONS, parquet_output_path=PARQUET_OUTPUT_PATH, model_dir=MODEL_DIR, max_new_tokens=MAX_NEW_TOKENS, project_name=PROJECT_NAME)

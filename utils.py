@@ -230,13 +230,11 @@ def variants_to_parquet(data, output_path: str, question_id: str) -> None:
     """
     
     samples = []
+    test_samples = []
     # Define an instruction for the incorrect questions.
-    instruction_following = (
-            "Solve the aforementioned integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+(1/3)*x**3</answer> "
-            "wrapped in a <answer> tags. Show your full working out before solving, don't include any constants of integration. DO NOT OUTPUT IN LATEX FORMAT. OUTPUT IN SYMPY. don't output a code solution though show your working out in text just final <answer> in sympy"
-    )
+    instruction_following = "Solve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+(1/3)*x**3</answer> wrapped in a <answer> tags. Importantly, put * between terms you want to multiply! Show your full working out before solving, don't include any constants of integration. DO NOT OUTPUT IN LATEX FORMAT. OUTPUT IN SYMPY in <answer> tags."
 
-    # Loop over each incorrect question.
+    # Loop over each question.
     for idx, question in enumerate(data["variants"]):
         # Build the prompt by combining the question with the instruction.
         prompt_content = f"{question['variant']}\n{instruction_following}"
@@ -259,23 +257,50 @@ def variants_to_parquet(data, output_path: str, question_id: str) -> None:
             }
         }
         samples.append(sample)
+
+    # Create test samples using the base question
+    base_prompt = f"{data['question']}\n{instruction_following}"
+    for i in range(16):
+        test_sample = {
+            "data_source": "integration_numeric",
+            "prompt": [{
+                "role": "user", 
+                "content": base_prompt
+            }],
+            "ability": "integration",
+            "reward_model": {
+                "style": "rule",
+                "ground_truth": data['question']
+            },
+            "extra_info": {
+                "question_index": i,
+                "question_id": data['question']
+            }
+        }
+        test_samples.append(test_sample)
     
     # Define a local output directory and ensure it exists.
     os.makedirs(output_path, exist_ok=True)
 
-    # Save the samples to a JSON file
+    # Save the samples to JSON files
     import json
     with open(os.path.join(output_path, f'variants_q{question_id}.json'), 'w') as f:
         json.dump(samples, f, indent=4)
+    with open(os.path.join(output_path, f'test_q{question_id}.json'), 'w') as f:
+        json.dump(test_samples, f, indent=4)
     
-    # Save the samples to a Parquet file
+    # Save the samples to Parquet files
     import pandas as pd
     df = pd.DataFrame(samples)
     df.to_parquet(os.path.join(output_path, f'variants_q{question_id}.parquet'))
     
+    test_df = pd.DataFrame(test_samples)
+    test_df.to_parquet(os.path.join(output_path, f'test_q{question_id}.parquet'))
+    
     print(f"Variants saved to {output_path}/variants_q{question_id}.parquet")
+    print(f"Test samples saved to {output_path}/test_q{question_id}.parquet")
 
-def run_rl(model_dir: str, train_parquet_path: str, project_name: str, experiment_name: str, max_new_tokens: int):
+def run_rl(model_dir: str, train_parquet_path: str, test_parquet_path: str, project_name: str, experiment_name: str, max_new_tokens: int):
     """
     Run RL using CustomTinyZero and the numerical_integration reward function
     """
@@ -301,19 +326,19 @@ def run_rl(model_dir: str, train_parquet_path: str, project_name: str, experimen
         "python3", "-m", "verl.trainer.main_ppo",
         f"algorithm.adv_estimator=grpo",
         f"data.train_files={train_parquet_path}",
-        f"data.val_files={train_parquet_path}",
-        "data.train_batch_size=128",
+        f"data.val_files={test_parquet_path}",
+        "data.train_batch_size=256",
         "data.val_batch_size=16", 
         "data.max_prompt_length=2048",
         f"data.max_response_length={max_new_tokens}",
         f"actor_rollout_ref.model.path={base_model}",
         "actor_rollout_ref.actor.optim.lr=1e-6",
         "actor_rollout_ref.model.use_remove_padding=True",
-        "actor_rollout_ref.actor.ppo_mini_batch_size=8",
-        "actor_rollout_ref.actor.ppo_micro_batch_size=8",
+        "actor_rollout_ref.actor.ppo_mini_batch_size=16",
+        "actor_rollout_ref.actor.ppo_micro_batch_size=16",
         "actor_rollout_ref.actor.use_dynamic_bsz=True",
-        "actor_rollout_ref.actor.ppo_max_token_len_per_gpu=4096",
-        "critic.ppo_max_token_len_per_gpu=4096",
+        "actor_rollout_ref.actor.ppo_max_token_len_per_gpu=2048",
+        "critic.ppo_max_token_len_per_gpu=2048",
         "actor_rollout_ref.actor.ulysses_sequence_parallel_size=2",
         "actor_rollout_ref.ref.ulysses_sequence_parallel_size=2",
         "critic.ulysses_sequence_parallel_size=2",
@@ -340,7 +365,7 @@ def run_rl(model_dir: str, train_parquet_path: str, project_name: str, experimen
         "trainer.test_freq=10",
         f"trainer.default_hdfs_dir={checkpoint_dir}",
         f"trainer.default_local_dir={checkpoint_dir}",
-        "trainer.total_epochs=1000"
+        "trainer.total_epochs=300"
     ]
 
     # Run the command from the correct directory and tee output to log file
