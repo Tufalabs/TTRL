@@ -1,0 +1,43 @@
+APPROX ~2k VARIANTS PER QUESTION
+
+Question: integrate(12*sinh(x)**2, x)
+Total variants: 2000
+Variants by difficulty:
+  level_0: 10
+  level_1: 89
+  level_2: 566
+  level_3: 1335
+
+Question: integrate(exp(-x)*cos(x), x)
+Total variants: 1859
+Variants by difficulty:
+  level_0: 6
+  level_1: 131
+  level_2: 576
+  level_3: 1146
+
+Question: integrate(x*log(x**2+1), x)
+Total variants: 1831
+Variants by difficulty:
+  level_0: 6
+  level_1: 98
+  level_2: 399
+  level_3: 1328
+
+Question: integrate(32*x*sin(x)**2, x)
+Total variants: 2156
+Variants by difficulty:
+  level_0: 10
+  level_1: 142
+  level_2: 697
+  level_3: 1307
+
+Question: integrate(x/(1+x**2), x)
+Total variants: 2073
+Variants by difficulty:
+  level_0: 7
+  level_1: 131
+  level_2: 664
+  level_3: 1271
+
+- akira

@@ -29,6 +29,8 @@ def main(path_to_questions: str, parquet_output_path: str, model_dir: str, max_n
     #         ]
     #     }
     # ]
+    import time
+    start_time = time.time()
 
     with open(path_to_questions, 'r') as f:
         data = json.load(f)
@@ -131,10 +133,14 @@ def main(path_to_questions: str, parquet_output_path: str, model_dir: str, max_n
     base_pass_k_correct = {p: sum(1 for r in results if r['base_model'][f'pass@{p}']) for p in passes}
     rl_pass_k_correct = {p: sum(1 for r in results if r['rl_model'][f'pass@{p}']) for p in passes}
     
+    end_time = time.time()
+    total_time = end_time - start_time
+    
     # Save results to JSON file
     results_json = {
         "summary": {
             "num_total": num_total,
+            "total_time_seconds": total_time,
             "base_model": {
                 "pass@1": {
                     "num_correct": base_pass_k_correct[1],
@@ -176,6 +182,6 @@ if __name__ == "__main__":
     MODEL_DIR = "meta-llama/Llama-3.2-3B-Instruct"
     # MODEL_DIR = "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
     MAX_NEW_TOKENS = 2024
-    PROJECT_NAME = "verl_grpo_ttrl_4"
+    PROJECT_NAME = "verl_grpo_ttrl_7"
     
     main(path_to_questions=PATH_TO_QUESTIONS, parquet_output_path=PARQUET_OUTPUT_PATH, model_dir=MODEL_DIR, max_new_tokens=MAX_NEW_TOKENS, project_name=PROJECT_NAME)
