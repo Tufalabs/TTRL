@@ -171,15 +171,15 @@ def main(path_to_questions: str, parquet_output_path: str, model_dir: str, max_n
         "questions": results
     }
     
-    with open(os.path.join(os.path.dirname(f"/home/ubuntu/o1-replication/TTRL/checkpoints/{project_name}"), "results.json"), "w") as f:
+    with open(os.path.join(os.path.dirname(f"/home/ubuntu/test/TTRL/checkpoints/{project_name}"), "results.json"), "w") as f:
         json.dump(results_json, f, indent=4)
 
 if __name__ == "__main__":
-    PATH_TO_QUESTIONS = '/home/ubuntu/o1-replication/TTRL/test_trees/ttrl.json'
-    PARQUET_OUTPUT_PATH = '/home/ubuntu/o1-replication/TTRL/test_trees_parquet'
+    PATH_TO_QUESTIONS = '/home/ubuntu/test/TTRL/test_trees/ttrl.json'
+    PARQUET_OUTPUT_PATH = '/home/ubuntu/test/TTRL/test_trees_parquet'
     MODEL_DIR = "meta-llama/Llama-3.2-3B-Instruct"
     # MODEL_DIR = "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
     MAX_NEW_TOKENS = 1024
-    PROJECT_NAME = "verl_grpo_ttrl_trees"
+    PROJECT_NAME = "verl_grpo_ttrl_trees4"
     
     main(path_to_questions=PATH_TO_QUESTIONS, parquet_output_path=PARQUET_OUTPUT_PATH, model_dir=MODEL_DIR, max_new_tokens=MAX_NEW_TOKENS, project_name=PROJECT_NAME)

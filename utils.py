@@ -312,7 +312,7 @@ def run_rl(model_dir: str, train_parquet_path: str, test_parquet_path: str, proj
     base_model = model_dir
 
     # Create checkpoint directory
-    checkpoint_dir = f"/home/ubuntu/o1-replication/TTRL/checkpoints/{project_name}/{experiment_name}"
+    checkpoint_dir = f"/home/ubuntu/test/TTRL/checkpoints/{project_name}/{experiment_name}"
 
     os.makedirs(checkpoint_dir, exist_ok=True, mode=0o777)
     log_file = os.path.join(checkpoint_dir, "logfile.txt")
@@ -365,7 +365,8 @@ def run_rl(model_dir: str, train_parquet_path: str, test_parquet_path: str, proj
         "trainer.test_freq=10",
         f"trainer.default_hdfs_dir={checkpoint_dir}",
         f"trainer.default_local_dir={checkpoint_dir}",
-        "trainer.total_epochs=300"
+        "trainer.total_epochs=8",
+        "actor_rollout_ref.actor.optim.total_training_steps=50"
     ]
 
     # Run the command from the correct directory and tee output to log file
@@ -375,7 +376,7 @@ def run_rl(model_dir: str, train_parquet_path: str, test_parquet_path: str, proj
             stdout=subprocess.PIPE, 
             stderr=subprocess.STDOUT,
             shell=True,
-            cwd="/home/ubuntu/o1-replication/CustomTinyZero"  # Set working directory here
+            cwd="/home/ubuntu/test/CustomTinyZero"  # Set working directory here
         )
         for line in process.stdout:
             sys.stdout.buffer.write(line)

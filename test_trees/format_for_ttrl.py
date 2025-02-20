@@ -37,8 +37,16 @@ def process_train_files() -> List[Dict[str, Any]]:
                             # Add variants from current level
                             for variant in node.get('variants', []):
                                 # Skip if we've seen this variant before
-                                if variant in seen_variants:
-                                    continue
+                                # Check if this variant is symbolically equivalent to any we've seen
+                                from sympy import simplify, sympify
+                                try:
+                                    variant_expr = sympify(variant)
+                                    if any(simplify(variant_expr - sympify(seen)) == 0 for seen in seen_variants):
+                                        continue
+                                except:
+                                    # If parsing fails, fall back to string comparison
+                                    if variant in seen_variants:
+                                        continue
                                     
                                 seen_variants.add(variant)
                                 variant_data = {
@@ -61,6 +69,7 @@ def process_train_files() -> List[Dict[str, Any]]:
                 except (json.JSONDecodeError, IOError) as e:
                     print(f"Error processing {file_path}: {str(e)}")
                     continue
+            print(f"Processed {file_path}")
     
     return formatted_data
 
@@ -69,10 +78,10 @@ def main():
     formatted_data = process_train_files()
     
     # Create output directory if it doesn't exist
-    os.makedirs('/home/ubuntu/o1-replication/TTRL/test_trees', exist_ok=True)
+    os.makedirs('/home/ubuntu/test/TTRL/test_trees', exist_ok=True)
     
     # Write formatted data to output file
-    output_path = os.path.join('/home/ubuntu/o1-replication/TTRL/test_trees', 'ttrl.json')
+    output_path = os.path.join('/home/ubuntu/test/TTRL/test_trees', 'ttrl.json')
     with open(output_path, 'w') as f:
         json.dump(formatted_data, f, indent=4)
     
