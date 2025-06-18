@@ -1,14 +1,24 @@
-import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
-from typing import Optional, List, Dict, Any
-from typing_extensions import Unpack
-import os, sys, subprocess
-import re
+import os
 import random
-import sympy as sp
-import mpmath as mp
+import re
 import signal
-from math_utils import is_equiv, last_boxed_only_string, remove_boxed
+import subprocess
+import sys
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+
+import mpmath as mp
+import sympy as sp
+import torch
+from math_utils import is_equiv
+from math_utils import last_boxed_only_string
+from math_utils import remove_boxed
+from transformers import AutoModelForCausalLM
+from transformers import AutoTokenizer
+from typing_extensions import Unpack
+
 
 def run_inference(
     prompt: str,
@@ -16,11 +26,11 @@ def run_inference(
     max_new_tokens: int = 2048,
     temperature: float = 0.7,
     device: str = "cuda",
-    system_prompt: Optional[str] = None
+    system_prompt: Optional[str] = None,
 ) -> str:
     """
     Run inference using Llama 3.2 3B model with HuggingFace API.
-    
+
     Args:
         prompt: Input text prompt
         model_dir: HuggingFace model directory
@@ -28,16 +38,14 @@ def run_inference(
         temperature: Sampling temperature (higher = more random)
         device: Device to run inference on ("cuda" or "cpu")
         system_prompt: System prompt prefix (optional)
-    
+
     Returns:
         Generated response text
     """
     # Initialize tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained(model_dir)
     model = AutoModelForCausalLM.from_pretrained(
-        model_dir,
-        torch_dtype=torch.float16,
-        device_map="auto"
+        model_dir, torch_dtype=torch.float16, device_map="auto"
     )
 
     # Format prompt with system prompt if provided
@@ -56,14 +64,14 @@ def run_inference(
             max_new_tokens=max_new_tokens,
             temperature=temperature,
             do_sample=True,
-            pad_token_id=tokenizer.eos_token_id
+            pad_token_id=tokenizer.eos_token_id,
         )
 
     # Decode response
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    
+
     # Clean up prompt from response
-    response = response[len(full_prompt):].strip()
+    response = response[len(full_prompt) :].strip()
 
     # Clean up GPU memory
     del model
@@ -72,30 +80,34 @@ def run_inference(
 
     return response
 
+
 # Timeout exception for integration evaluation
 class TimeoutException(Exception):
     pass
 
+
 def timeout_handler(signum, frame):
     raise TimeoutException("Integration evaluation timed out.")
+
 
 # Set the signal handler (Note: signal.alarm works on Unix-like systems)
 signal.signal(signal.SIGALRM, timeout_handler)
 
-def extract_candidate_solution(solution_str: str, method: str = 'strict') -> str:
+
+def extract_candidate_solution(solution_str: str, method: str = "strict") -> str:
     """
     Extracts the candidate integration solution from the provided solution string.
     Also filters out any candidate that directly contains an integration command.
     """
     if not solution_str or not isinstance(solution_str, str):
         return None
-        
-    assert method in ['strict', 'flexible'], "Method must be 'strict' or 'flexible'"
+
+    assert method in ["strict", "flexible"], "Method must be 'strict' or 'flexible'"
     candidate = None
-    if method == 'strict':
+    if method == "strict":
         try:
-            #matches = re.findall(r"\\boxed{(.*?)}", solution_str, re.IGNORECASE | re.DOTALL)
-            #candidate = matches[-1].strip() if matches else None
+            # matches = re.findall(r"\\boxed{(.*?)}", solution_str, re.IGNORECASE | re.DOTALL)
+            # candidate = matches[-1].strip() if matches else None
             string_in_last_boxed = last_boxed_only_string(solution_str)
             candidate = remove_boxed(string_in_last_boxed)
         except Exception:
@@ -104,10 +116,11 @@ def extract_candidate_solution(solution_str: str, method: str = 'strict') -> str
         candidate = solution_str.strip()
 
     # Filter out candidates that contain the word 'integrate' (in any case)
-    if candidate and re.search(r'\bintegrate\b', candidate, re.IGNORECASE):
+    if candidate and re.search(r"\bintegrate\b", candidate, re.IGNORECASE):
         return None
 
     return candidate
+
 
 def preprocess_candidate_solution(solution: str) -> str:
     """
@@ -116,7 +129,7 @@ def preprocess_candidate_solution(solution: str) -> str:
     """
     if not solution or not isinstance(solution, str):
         return "0"  # Return a safe default that will parse to 0
-        
+
     try:
         # Remove LaTeX delimiters and dollar signs.
         solution = solution.replace(r"\(", "").replace(r"\)", "")
@@ -133,57 +146,64 @@ def preprocess_candidate_solution(solution: str) -> str:
         solution = solution.replace("^", "**")
 
         # Replace e** notation with exp()
-        solution = re.sub(r'e\*\*([^*]+)', r'exp(\1)', solution)
+        solution = re.sub(r"e\*\*([^*]+)", r"exp(\1)", solution)
         # Remove any trailing "+ C" or similar constant expressions.
         solution = re.sub(r"\+?\s*C\b", "", solution)
         return solution.strip() or "0"  # Return "0" if empty after processing
     except Exception:
         return "0"
 
-def verify_response(response: str, ground_truth: str, num_tests: int = 5, timeout_secs: int = 10, tol: float = 1e-2) -> bool:
+
+def verify_response(
+    response: str,
+    ground_truth: str,
+    num_tests: int = 5,
+    timeout_secs: int = 10,
+    tol: float = 1e-2,
+) -> bool:
     """
     Verify the response is correct by comparing it to the question.
     """
-    candidate = extract_candidate_solution(response, method='strict')
+    candidate = extract_candidate_solution(response, method="strict")
     if not candidate:
         return False
 
     candidate = preprocess_candidate_solution(candidate)
     ground_truth_processed = preprocess_candidate_solution(ground_truth)
-    
-    x = sp.symbols('x')
+
+    x = sp.symbols("x")
     locals_dict = {
-        'x': x,
-        'C': 0,
-        'integrate': sp.integrate,
-        'pi': sp.pi,
-        'sin': sp.sin,
-        'cos': sp.cos,
-        'tan': sp.tan,
-        'log': sp.log,
-        'exp': sp.exp
+        "x": x,
+        "C": 0,
+        "integrate": sp.integrate,
+        "pi": sp.pi,
+        "sin": sp.sin,
+        "cos": sp.cos,
+        "tan": sp.tan,
+        "log": sp.log,
+        "exp": sp.exp,
     }
-    
+
     try:
         candidate_expr = sp.parse_expr(candidate, local_dict=locals_dict)
         # Extract the integrand from ground_truth by removing 'integrate(' and splitting at the comma.
-        integrand_str = ground_truth_processed.replace('integrate(', '').split(',')[0]
+        integrand_str = ground_truth_processed.replace("integrate(", "").split(",")[0]
         integrand_expr = sp.parse_expr(integrand_str, local_dict=locals_dict)
-        
+
         # Create lambda functions for numerical evaluation.
         candidate_func = sp.lambdify(x, candidate_expr, "mpmath")
         integrand_func = sp.lambdify(x, integrand_expr, "mpmath")
-        
+
         is_correct = True
         successful_tests = 0
         for test_num in range(num_tests):
             a_val = random.uniform(-10, 10)
             b_val = random.uniform(-10, 10)
-          
+
             if abs(b_val - a_val) < 1e-3:
                 # Skip tests where the evaluation points are too close.
                 continue
-                
+
             try:
                 # Set an alarm for the timeout.
                 signal.alarm(timeout_secs)
@@ -191,7 +211,7 @@ def verify_response(response: str, ground_truth: str, num_tests: int = 5, timeou
                 definite_integral = mp.quad(integrand_func, [a_val, b_val])
                 # Cancel the alarm.
                 signal.alarm(0)
-                
+
                 if abs(candidate_diff - definite_integral) > tol:
                     is_correct = False
                     break
@@ -204,19 +224,20 @@ def verify_response(response: str, ground_truth: str, num_tests: int = 5, timeou
                 signal.alarm(0)
                 print(f"Test {test_num + 1}: Error during evaluation: {str(e)}")
                 continue
-        
+
         if not is_correct:
             return False
-    
+
         return successful_tests > 0
     except Exception as e:
         print(f"Error during computation: {str(e)}")
         return False
 
+
 def variants_to_parquet(data, output_path: str, question_id: str) -> None:
     """
     Expects data in the following format:
-    
+
     {
         "question": "integrate(1/(x**2 - x + 1), x)",
         "variants": [
@@ -228,33 +249,31 @@ def variants_to_parquet(data, output_path: str, question_id: str) -> None:
         ]
     }
     """
-    
+
     samples = []
     test_samples = []
     # Define an instruction for the incorrect questions.
-    instruction_following = "Solve the following integral. Provide ONLY your antiderivative as a valid Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+(1/3)*x**3</answer> wrapped in a <answer> tags. Importantly, put * between terms you want to multiply! Show your full working out before solving, don't include any constants of integration. DO NOT OUTPUT IN LATEX FORMAT. OUTPUT IN SYMPY in <answer> tags."
+    instruction_following = (
+        "Solve the following integral. Provide ONLY your antiderivative as a valid"
+        " Python sympy expression e.g  <answer>cos(x**2)+ ln(x)+(1/3)*x**3</answer>"
+        " wrapped in a <answer> tags. Importantly, put * between terms you want to"
+        " multiply! Show your full working out before solving, don't include any"
+        " constants of integration. DO NOT OUTPUT IN LATEX FORMAT. OUTPUT IN SYMPY in"
+        " <answer> tags."
+    )
 
     # Loop over each question.
     for idx, question in enumerate(data["variants"]):
         # Build the prompt by combining the question with the instruction.
         prompt_content = f"{question['variant']}\n{instruction_following}"
-        
+
         # Build a sample dictionary
         sample = {
             "data_source": "integration_numeric",
-            "prompt": [{
-                "role": "user",
-                "content": prompt_content
-            }],
+            "prompt": [{"role": "user", "content": prompt_content}],
             "ability": "integration",
-            "reward_model": {
-                "style": "rule",
-                "ground_truth": question["variant"]
-            },
-            "extra_info": {
-                "question_index": idx,
-                "question_id": question["variant"]
-            }
+            "reward_model": {"style": "rule", "ground_truth": question["variant"]},
+            "extra_info": {"question_index": idx, "question_id": question["variant"]},
         }
         samples.append(sample)
 
@@ -263,44 +282,45 @@ def variants_to_parquet(data, output_path: str, question_id: str) -> None:
     for i in range(16):
         test_sample = {
             "data_source": "integration_numeric",
-            "prompt": [{
-                "role": "user", 
-                "content": base_prompt
-            }],
+            "prompt": [{"role": "user", "content": base_prompt}],
             "ability": "integration",
-            "reward_model": {
-                "style": "rule",
-                "ground_truth": data['question']
-            },
-            "extra_info": {
-                "question_index": i,
-                "question_id": data['question']
-            }
+            "reward_model": {"style": "rule", "ground_truth": data["question"]},
+            "extra_info": {"question_index": i, "question_id": data["question"]},
         }
         test_samples.append(test_sample)
-    
+
     # Define a local output directory and ensure it exists.
     os.makedirs(output_path, exist_ok=True)
 
     # Save the samples to JSON files
     import json
-    with open(os.path.join(output_path, f'variants_q{question_id}.json'), 'w') as f:
+
+    with open(os.path.join(output_path, f"variants_q{question_id}.json"), "w") as f:
         json.dump(samples, f, indent=4)
-    with open(os.path.join(output_path, f'test_q{question_id}.json'), 'w') as f:
+    with open(os.path.join(output_path, f"test_q{question_id}.json"), "w") as f:
         json.dump(test_samples, f, indent=4)
-    
+
     # Save the samples to Parquet files
     import pandas as pd
+
     df = pd.DataFrame(samples)
-    df.to_parquet(os.path.join(output_path, f'variants_q{question_id}.parquet'))
-    
+    df.to_parquet(os.path.join(output_path, f"variants_q{question_id}.parquet"))
+
     test_df = pd.DataFrame(test_samples)
-    test_df.to_parquet(os.path.join(output_path, f'test_q{question_id}.parquet'))
-    
+    test_df.to_parquet(os.path.join(output_path, f"test_q{question_id}.parquet"))
+
     print(f"Variants saved to {output_path}/variants_q{question_id}.parquet")
     print(f"Test samples saved to {output_path}/test_q{question_id}.parquet")
 
-def run_rl(model_dir: str, train_parquet_path: str, test_parquet_path: str, project_name: str, experiment_name: str, max_new_tokens: int):
+
+def run_rl(
+    model_dir: str,
+    train_parquet_path: str,
+    test_parquet_path: str,
+    project_name: str,
+    experiment_name: str,
+    max_new_tokens: int,
+):
     """
     Run RL using CustomTinyZero and the numerical_integration reward function
     """
@@ -312,23 +332,28 @@ def run_rl(model_dir: str, train_parquet_path: str, test_parquet_path: str, proj
     base_model = model_dir
 
     # Create checkpoint directory
-    checkpoint_dir = f"/home/ubuntu/test/TTRL/checkpoints/{project_name}/{experiment_name}"
+    checkpoint_dir = (
+        f"/home/ubuntu/test/TTRL/checkpoints/{project_name}/{experiment_name}"
+    )
 
     os.makedirs(checkpoint_dir, exist_ok=True, mode=0o777)
     log_file = os.path.join(checkpoint_dir, "logfile.txt")
 
     # Copy current script to experiment directory
     import shutil
+
     shutil.copy2(__file__, os.path.join(checkpoint_dir, os.path.basename(__file__)))
 
     # Build command arguments - removed 'cd' and '&&' and use shell=True instead
     cmd = [
-        "python3", "-m", "verl.trainer.main_ppo",
+        "python3",
+        "-m",
+        "verl.trainer.main_ppo",
         f"algorithm.adv_estimator=grpo",
         f"data.train_files={train_parquet_path}",
         f"data.val_files={test_parquet_path}",
         "data.train_batch_size=256",
-        "data.val_batch_size=16", 
+        "data.val_batch_size=16",
         "data.max_prompt_length=2048",
         f"data.max_response_length={max_new_tokens}",
         f"actor_rollout_ref.model.path={base_model}",
@@ -347,7 +372,7 @@ def run_rl(model_dir: str, train_parquet_path: str, test_parquet_path: str, proj
         "actor_rollout_ref.actor.kl_loss_type=low_var_kl",
         "actor_rollout_ref.model.enable_gradient_checkpointing=True",
         "actor_rollout_ref.actor.fsdp_config.param_offload=False",
-        "actor_rollout_ref.actor.fsdp_config.grad_offload=False", 
+        "actor_rollout_ref.actor.fsdp_config.grad_offload=False",
         "actor_rollout_ref.actor.fsdp_config.optimizer_offload=False",
         "actor_rollout_ref.rollout.tensor_model_parallel_size=2",
         "actor_rollout_ref.rollout.name=vllm",
@@ -366,30 +391,30 @@ def run_rl(model_dir: str, train_parquet_path: str, test_parquet_path: str, proj
         f"trainer.default_hdfs_dir={checkpoint_dir}",
         f"trainer.default_local_dir={checkpoint_dir}",
         "trainer.total_epochs=8",
-        "actor_rollout_ref.actor.optim.total_training_steps=50"
+        "actor_rollout_ref.actor.optim.total_training_steps=50",
     ]
 
     # Run the command from the correct directory and tee output to log file
-    with open(log_file, 'a') as f:
+    with open(log_file, "a") as f:
         process = subprocess.Popen(
-            ' '.join(cmd),
-            stdout=subprocess.PIPE, 
+            " ".join(cmd),
+            stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             shell=True,
-            cwd="/home/ubuntu/test/CustomTinyZero"  # Set working directory here
+            cwd="/home/ubuntu/test/CustomTinyZero",  # Set working directory here
         )
         for line in process.stdout:
             sys.stdout.buffer.write(line)
             f.buffer.write(line)
-    
+
     last_checkpoint_path = os.path.join(checkpoint_dir, "actor")
 
     # Clean up GPU memory
     if torch.cuda.is_available():
         torch.cuda.empty_cache()
-        
+
     return last_checkpoint_path
-    
+
 
 def generate_variants(question: Dict, output_dir: str):
     """
@@ -407,7 +432,28 @@ def generate_variants(question: Dict, output_dir: str):
 
     pass
 
+
 if __name__ == "__main__":
-    prompt = "<|system|>: Assume you can adopt various mathematical personas such as a calculus professor who loves elegant simplifications, a creative mathematician who enjoys unusual substitutions, a student who prefers working with polynomials and rational functions, a theoretical physicist who likes trigonometric and exponential forms, an engineer who favors practical, computational approaches, a number theorist fascinated by prime numbers and rational coefficients, a geometry enthusiast who thinks in terms of geometric transformations.\n\nGiven the integral: integrate(1/(x**2 - x + 1), x)\nYour task is to generate 4 variant(s) that are equivalent than the original.\n\n1. Analyze the original integral and identify its key characteristics.\n2. Consider the following transformation ideas: apply algebraic identities that preserve complexity and rewrite the integrand in a different form without changing overall complexity and distribute terms differently. You may use them or devise your own modifications.\n3. For each variant, provide a brief reasoning from the perspective of a distinct persona and then present the variant in valid Python sympy syntax.\n\nReturn your answer in the following exact format for each variant:\n====\nVariant <number>:\nReasoning: <your explanation>\nVariant: integrate(<integrand>, x)\n====\nEnsure each variant is clearly separated by the delimiter '===='. <|assistant|>"
+    prompt = (
+        "<|system|>: Assume you can adopt various mathematical personas such as a"
+        " calculus professor who loves elegant simplifications, a creative"
+        " mathematician who enjoys unusual substitutions, a student who prefers working"
+        " with polynomials and rational functions, a theoretical physicist who likes"
+        " trigonometric and exponential forms, an engineer who favors practical,"
+        " computational approaches, a number theorist fascinated by prime numbers and"
+        " rational coefficients, a geometry enthusiast who thinks in terms of geometric"
+        " transformations.\n\nGiven the integral: integrate(1/(x**2 - x + 1), x)\nYour"
+        " task is to generate 4 variant(s) that are equivalent than the original.\n\n1."
+        " Analyze the original integral and identify its key characteristics.\n2."
+        " Consider the following transformation ideas: apply algebraic identities that"
+        " preserve complexity and rewrite the integrand in a different form without"
+        " changing overall complexity and distribute terms differently. You may use"
+        " them or devise your own modifications.\n3. For each variant, provide a brief"
+        " reasoning from the perspective of a distinct persona and then present the"
+        " variant in valid Python sympy syntax.\n\nReturn your answer in the following"
+        " exact format for each variant:\n====\nVariant <number>:\nReasoning: <your"
+        " explanation>\nVariant: integrate(<integrand>, x)\n====\nEnsure each variant"
+        " is clearly separated by the delimiter '===='. <|assistant|>"
+    )
     response = run_inference(prompt=prompt, system_prompt=None)
     print(response)

@@ -17,15 +17,17 @@ If the integration (antiderivative computation) takes more than 5 seconds, it is
 returned with a solution of None (and an empty evaluation dictionary), rather than being thrown out.
 """
 
+import concurrent.futures
 import json
 import math
+import os
 import random
 import re
 from datetime import datetime
-import concurrent.futures
-import sympy as sp
-import os
 from typing import Optional
+
+import sympy as sp
+
 from TTRL.utils import run_inference
 
 TIMEOUT_SECONDS = 1  # Maximum allowed seconds for integration
@@ -36,12 +38,14 @@ CALCULATE_SYMBOLIC = False  # Set to False to disable symbolic integration compu
 # Create a global process pool executor to reuse worker processes.
 executor = concurrent.futures.ProcessPoolExecutor(max_workers=4)
 
+
 def integrate_wrapper(integrand, x):
     """
     A top-level function to compute sp.integrate(integrand, x).
     This function is picklable and can be used with the executor.
     """
     return sp.integrate(integrand, x)
+
 
 def run_integration(integrand, x, timeout=TIMEOUT_SECONDS):
     """
@@ -51,13 +55,14 @@ def run_integration(integrand, x, timeout=TIMEOUT_SECONDS):
     future = executor.submit(integrate_wrapper, integrand, x)
     return future.result(timeout=timeout)
 
+
 def verify_integral(integral_str: str) -> bool:
     """
     Verify the integral by checking that the derivative of the antiderivative equals the original integrand.
     Uses symbolic simplification to check for an exact zero difference.
     Note: In this revised version we no longer use this result to drop variants.
     """
-    x = sp.symbols('x')
+    x = sp.symbols("x")
     try:
         pattern = r"integrate\((.+),\s*x\)"
         match = re.search(pattern, integral_str)
@@ -69,7 +74,10 @@ def verify_integral(integral_str: str) -> bool:
         try:
             antideriv = run_integration(integrand, x, timeout=TIMEOUT_SECONDS)
         except Exception as e:
-            print("Integration timed out in verify_integral; returning non-verified result.")
+            print(
+                "Integration timed out in verify_integral; returning non-verified"
+                " result."
+            )
             return False
 
         diff_expr = sp.simplify(sp.diff(antideriv, x) - integrand)
@@ -78,12 +86,19 @@ def verify_integral(integral_str: str) -> bool:
         print("Error verifying integral:", e)
         return False
 
-def compute_solution_and_evals(integral_str: str, num_points: int = 3, lower: float = -10, upper: float = 10, tol: float = 1e-6):
+
+def compute_solution_and_evals(
+    integral_str: str,
+    num_points: int = 3,
+    lower: float = -10,
+    upper: float = 10,
+    tol: float = 1e-6,
+):
     """
     Given an integral string of the form "integrate(<integrand>, x)", compute the antiderivative (solution)
     and evaluate that solution at up to `num_points` random values of x.
     If the antiderivative cannot be computed within TIMEOUT_SECONDS, returns None and an empty dict.
-    
+
     Returns:
         solution_str: The antiderivative as a string (or None if not computable or if symbolic integration is disabled).
         evaluations: A dictionary mapping each random x value (rounded) to the numerical evaluation.
@@ -92,7 +107,7 @@ def compute_solution_and_evals(integral_str: str, num_points: int = 3, lower: fl
     if not CALCULATE_SYMBOLIC:
         return None, {}
 
-    x = sp.symbols('x')
+    x = sp.symbols("x")
     try:
         pattern = r"integrate\((.+),\s*x\)"
         match = re.search(pattern, integral_str)
@@ -104,7 +119,10 @@ def compute_solution_and_evals(integral_str: str, num_points: int = 3, lower: fl
         try:
             antideriv = run_integration(integrand, x, timeout=TIMEOUT_SECONDS)
         except Exception as e:
-            print("Integration timed out in compute_solution_and_evals; marking as too hard.")
+            print(
+                "Integration timed out in compute_solution_and_evals; marking as too"
+                " hard."
+            )
             return None, {}
         solution_str = str(antideriv)
         evaluations = {}
@@ -125,11 +143,12 @@ def compute_solution_and_evals(integral_str: str, num_points: int = 3, lower: fl
         print("Error computing solution/evaluations:", e)
         return None, {}
 
+
 def parse_variants(text: str) -> list:
     """
     Parse the LLM response text and extract a list of variant dictionaries.
     The expected format for each variant is:
-    
+
     ====
     Variant <number>:
     Reasoning: <explanation>
@@ -140,16 +159,27 @@ def parse_variants(text: str) -> list:
     blocks = re.split(r"====\s*", text)
     for block in blocks:
         if "Variant:" in block and "Reasoning:" in block:
-            reasoning_match = re.search(r"Reasoning:\s*(.*?)\s*Variant:", block, re.DOTALL)
+            reasoning_match = re.search(
+                r"Reasoning:\s*(.*?)\s*Variant:", block, re.DOTALL
+            )
             variant_match = re.search(r"Variant:\s*(integrate\([^,]+,\s*x\))", block)
             print(f"variant_match: {variant_match}")
             if variant_match:
                 variant_expr = variant_match.group(1).strip()
-                reasoning_text = reasoning_match.group(1).strip() if reasoning_match else ""
+                reasoning_text = (
+                    reasoning_match.group(1).strip() if reasoning_match else ""
+                )
                 variants.append({"reasoning": reasoning_text, "variant": variant_expr})
     return variants
 
-def process_single_variant(model: str, output_dir: str, original_integral: str, difficulty: str, variant_data: dict) -> dict:
+
+def process_single_variant(
+    model: str,
+    output_dir: str,
+    original_integral: str,
+    difficulty: str,
+    variant_data: dict,
+) -> dict:
     """
     Process one variant dictionary:
       - Attempt to compute its antiderivative (solution) and numerical evaluations.
@@ -165,7 +195,7 @@ def process_single_variant(model: str, output_dir: str, original_integral: str, 
     solution, evaluations = compute_solution_and_evals(variant_integral)
 
     # Try to verify the computed solution only if available.
-    x = sp.symbols('x')
+    x = sp.symbols("x")
     verification = None
     pattern = r"integrate\((.+),\s*x\)"
     match = re.search(pattern, variant_integral)
@@ -176,7 +206,7 @@ def process_single_variant(model: str, output_dir: str, original_integral: str, 
             if solution is not None:
                 antideriv = sp.sympify(solution)
                 diff_expr = sp.simplify(sp.diff(antideriv, x) - integrand)
-                verification = (diff_expr == 0)
+                verification = diff_expr == 0
             else:
                 verification = None
         except Exception as e:
@@ -186,15 +216,14 @@ def process_single_variant(model: str, output_dir: str, original_integral: str, 
 
     evaluation = "unknown"
     prompt_evaluation = (
-        f"Original integral: {original_integral}\n"
-        f"Variant integral: {variant_integral}\n"
-        "Based on the changes, determine whether the variant is 'easier', 'harder', or 'equivalent' to the original. "
-        "Answer with one word: easier, harder, or equivalent."
+        f"Original integral: {original_integral}\nVariant integral:"
+        f" {variant_integral}\nBased on the changes, determine whether the variant is"
+        " 'easier', 'harder', or 'equivalent' to the original. Answer with one word:"
+        " easier, harder, or equivalent."
     )
-    evaluation_response = run_inference(prompt=prompt_evaluation, 
-                                    model_dir=model,
-                                    max_new_tokens=4048,
-                                    temperature=0.3)
+    evaluation_response = run_inference(
+        prompt=prompt_evaluation, model_dir=model, max_new_tokens=4048, temperature=0.3
+    )
     print(f"evaluation_response: {evaluation_response}")
     if evaluation_response:
         evaluation = evaluation_response.strip().split()[0].lower()
@@ -208,12 +237,19 @@ def process_single_variant(model: str, output_dir: str, original_integral: str, 
         "verification_passed": verification,
         "evaluation": evaluation,
         "transformations_used": variant_data.get("transformations_used", []),
-        "solution": solution,           # Will be None if integration took too long or if CALCULATE_SYMBOLIC is False.
-        "evaluations": evaluations,       # Will be {} if integration took too long or if CALCULATE_SYMBOLIC is False.
-        "timestamp": datetime.utcnow().isoformat() + "Z"
+        "solution": (
+            solution
+        ),  # Will be None if integration took too long or if CALCULATE_SYMBOLIC is False.
+        "evaluations": (
+            evaluations
+        ),  # Will be {} if integration took too long or if CALCULATE_SYMBOLIC is False.
+        "timestamp": datetime.utcnow().isoformat() + "Z",
     }
 
-def generate_variant_chunk(model: str, output_dir: str, integral_str: str, difficulty: str, count: int) -> list:
+
+def generate_variant_chunk(
+    model: str, output_dir: str, integral_str: str, difficulty: str, count: int
+) -> list:
     """
     Generate a chunk (up to 10) of variants in a single LLM call.
     The prompt instructs the LLM to produce `count` variants in the specified format.
@@ -224,7 +260,9 @@ def generate_variant_chunk(model: str, output_dir: str, integral_str: str, diffi
         transformations = ["make a small change"]
 
     num_choices = random.choice([3, 5])
-    chosen_transforms = random.sample(transformations, min(num_choices, len(transformations)))
+    chosen_transforms = random.sample(
+        transformations, min(num_choices, len(transformations))
+    )
     transforms_text = " and ".join(chosen_transforms)
 
     personas = [
@@ -234,30 +272,27 @@ def generate_variant_chunk(model: str, output_dir: str, integral_str: str, diffi
         "a theoretical physicist who likes trigonometric and exponential forms",
         "an engineer who favors practical, computational approaches",
         "a number theorist fascinated by prime numbers and rational coefficients",
-        "a geometry enthusiast who thinks in terms of geometric transformations"
+        "a geometry enthusiast who thinks in terms of geometric transformations",
     ]
     personas_str = ", ".join(personas)
 
     prompt_variant = (
-        f"Assume you can adopt various mathematical personas such as {personas_str}.\n\n"
-        f"Given the integral: {integral_str}\n"
-        f"Your task is to generate {count} variant(s) that are {difficulty} than the original.\n\n"
-        f"1. Analyze the original integral and identify its key characteristics.\n"
-        f"2. Consider the following transformation ideas: {transforms_text}. You may use them or devise your own modifications.\n"
-        f"3. For each variant, provide a brief reasoning from the perspective of a distinct persona and then present the variant in valid Python sympy syntax.\n\n"
-        "Return your answer in the following exact format for each variant:\n"
-        "====\n"
-        "Variant <number>:\n"
-        "Reasoning: <your explanation>\n"
-        "Variant: integrate(<integrand>, x)\n"
-        "====\n"
-        "Ensure each variant is clearly separated by the delimiter '===='."
+        "Assume you can adopt various mathematical personas such as"
+        f" {personas_str}.\n\nGiven the integral: {integral_str}\nYour task is to"
+        f" generate {count} variant(s) that are {difficulty} than the original.\n\n1."
+        " Analyze the original integral and identify its key characteristics.\n2."
+        f" Consider the following transformation ideas: {transforms_text}. You may use"
+        " them or devise your own modifications.\n3. For each variant, provide a brief"
+        " reasoning from the perspective of a distinct persona and then present the"
+        " variant in valid Python sympy syntax.\n\nReturn your answer in the following"
+        " exact format for each variant:\n====\nVariant <number>:\nReasoning: <your"
+        " explanation>\nVariant: integrate(<integrand>, x)\n====\nEnsure each variant"
+        " is clearly separated by the delimiter '===='."
     )
 
-    response_text = run_inference(prompt=prompt_variant,
-                              model_dir=model,
-                              max_new_tokens=2024,
-                              temperature=0.3)
+    response_text = run_inference(
+        prompt=prompt_variant, model_dir=model, max_new_tokens=2024, temperature=0.3
+    )
     print(f"response_text: {response_text}")
     parsed_variants = parse_variants(response_text)
 
@@ -266,11 +301,18 @@ def generate_variant_chunk(model: str, output_dir: str, integral_str: str, diffi
 
     processed_variants = []
     for variant in parsed_variants:
-        result = process_single_variant(model=model, output_dir=output_dir, original_integral=integral_str, difficulty=difficulty, variant_data=variant)
+        result = process_single_variant(
+            model=model,
+            output_dir=output_dir,
+            original_integral=integral_str,
+            difficulty=difficulty,
+            variant_data=variant,
+        )
         if result is not None:
             processed_variants.append(result)
-            
+
     return processed_variants
+
 
 TRANSFORMATIONS_BY_DIFFICULTY = {
     "easier": [
@@ -278,7 +320,6 @@ TRANSFORMATIONS_BY_DIFFICULTY = {
         "simplify the denominator",
         "reduce an exponent",
         "change a function to an easier one",
- 
         "lower a coefficient",
         "remove a factor",
         "eliminate a radical",
@@ -293,7 +334,7 @@ TRANSFORMATIONS_BY_DIFFICULTY = {
         "eliminate absolute value terms",
         "reduce the number of terms in the expression",
         "replace transcendental functions with simpler algebraic ones",
-        "change a function to an easier one"
+        "change a function to an easier one",
     ],
     "equivalent": [
         "change a function to an easier one",
@@ -314,7 +355,7 @@ TRANSFORMATIONS_BY_DIFFICULTY = {
         "swap numerator and denominator with reciprocal",
         "use alternate but equivalent radical forms",
         "rewrite using different logarithmic properties",
-        "apply algebraic identities that preserve complexity"
+        "apply algebraic identities that preserve complexity",
     ],
     "harder": [
         "introduce an additional polynomial factor",
@@ -325,11 +366,18 @@ TRANSFORMATIONS_BY_DIFFICULTY = {
         "complicate the denominator",
         "introduce a composite trigonometric function",
         "add a product of functions",
-        "embed an extra constant factor that makes the expression less trivial"
-    ]
+        "embed an extra constant factor that makes the expression less trivial",
+    ],
 }
 
-def process_integral(model: str, output_dir: str, integral_str: str, difficulties: list, num_variants: int = 3) -> list:
+
+def process_integral(
+    model: str,
+    output_dir: str,
+    integral_str: str,
+    difficulties: list,
+    num_variants: int = 3,
+) -> list:
     """
     Generate a batch of variants for the given integral and for each difficulty.
     If more than 10 variants are requested per difficulty, the work is split into multiple LLM calls.
@@ -343,37 +391,61 @@ def process_integral(model: str, output_dir: str, integral_str: str, difficultie
         total_to_request = num_variants * buffer_multiplier
         num_chunks = math.ceil(total_to_request / 10)
         difficulty_results = []
-        
+
         for i in range(num_chunks):
-            count = 10 if (i < num_chunks - 1) else (total_to_request - 10 * (num_chunks - 1))
-            chunk_results = generate_variant_chunk(model=model, output_dir=output_dir, integral_str=integral_str, difficulty=difficulty, count=count)
-            
+            count = (
+                10
+                if (i < num_chunks - 1)
+                else (total_to_request - 10 * (num_chunks - 1))
+            )
+            chunk_results = generate_variant_chunk(
+                model=model,
+                output_dir=output_dir,
+                integral_str=integral_str,
+                difficulty=difficulty,
+                count=count,
+            )
+
             for variant in chunk_results:
                 variant_expr = variant.get("variant")
-                if (variant_expr 
-                    and variant_expr not in seen_variants 
-                    and not (variant.get("evaluation", "") == "harder" and difficulty != "harder")):
+                if (
+                    variant_expr
+                    and variant_expr not in seen_variants
+                    and not (
+                        variant.get("evaluation", "") == "harder"
+                        and difficulty != "harder"
+                    )
+                ):
                     seen_variants.add(variant_expr)
                     difficulty_results.append(variant)
-                    
+
         final_results.extend(difficulty_results[:num_variants])
-    
+
     return final_results
 
-def generate_variants_main(model_dir: str, output_file: str, output_dir: str, gpus: str = "0,1,2,3,4,5,6,7"):
+
+def generate_variants_main(
+    model_dir: str, output_file: str, output_dir: str, gpus: str = "0,1,2,3,4,5,6,7"
+):
 
     base_integral = "integrate(1/(x**2 - x + 1), x)"
-    #difficulties = ["easier", "equivalent", "harder"]
+    # difficulties = ["easier", "equivalent", "harder"]
     difficulties = ["easier"]
     print("Processing integral:", base_integral)
-    variants = process_integral(model=model_dir, output_dir=output_dir, integral_str=base_integral, difficulties=difficulties, num_variants=2)
+    variants = process_integral(
+        model=model_dir,
+        output_dir=output_dir,
+        integral_str=base_integral,
+        difficulties=difficulties,
+        num_variants=2,
+    )
 
     print("GOT HEREEEEEE")
-    
+
     os.makedirs(output_dir, exist_ok=True)
     with open(os.path.join(output_dir, output_file), "w") as outfile:
         json.dump(variants, outfile, indent=4)
-    
+
     print("GOT HEREEEEEE 2")
     for idx, v in enumerate(variants, start=1):
         print(f"\n--- Variant {idx} ---")
@@ -385,8 +457,11 @@ def generate_variants_main(model_dir: str, output_file: str, output_dir: str, gp
         print("Solution (antiderivative):", v["solution"])
         print("Evaluations at random points:", v["evaluations"])
 
+
 if __name__ == "__main__":
-    generate_variants_main(model_dir="meta-llama/Llama-3.2-3B-Instruct", 
-                         gpus="0,1,2,3,4,5,6,7", 
-                         output_file="variants.json",
-                         output_dir="/home/ubuntu/o1-replication/TTRL/variant_results_test")
+    generate_variants_main(
+        model_dir="meta-llama/Llama-3.2-3B-Instruct",
+        gpus="0,1,2,3,4,5,6,7",
+        output_file="variants.json",
+        output_dir="/home/ubuntu/o1-replication/TTRL/variant_results_test",
+    )
