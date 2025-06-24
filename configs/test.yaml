@@ -4,7 +4,7 @@ defaults:
 
 ttrl:
   trees_dir: questions/
-  output_dir: datasets/questions
+  data_output_dir: datasets/questions
   num_eval: 10
   pass_at_k_params:
     n: 50

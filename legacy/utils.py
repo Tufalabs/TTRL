@@ -4,20 +4,16 @@ import re
 import signal
 import subprocess
 import sys
-from typing import Any
 from typing import Dict
-from typing import List
 from typing import Optional
 
 import mpmath as mp
 import sympy as sp
 import torch
-from math_utils import is_equiv
-from math_utils import last_boxed_only_string
-from math_utils import remove_boxed
+from legacy.math_utils import last_boxed_only_string
+from legacy.math_utils import remove_boxed
 from transformers import AutoModelForCausalLM
 from transformers import AutoTokenizer
-from typing_extensions import Unpack
 
 
 def run_inference(

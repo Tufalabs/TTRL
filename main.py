@@ -3,6 +3,7 @@ Main entry point for Test-Time Reinforcement Learning (TTRL).
 Follows the example project pattern with dataclasses for configuration.
 """
 
+import json
 import os
 import time
 from dataclasses import dataclass
@@ -38,7 +39,8 @@ from data.format_for_ttrl import FlatTree
 from data.format_for_ttrl import Variant
 from data.format_for_ttrl import flatten_trees_from_dir
 from data.format_for_ttrl import to_verl_format
-from legacy.utils import verify_response
+from legacy.integration_numeric import FormalStatus
+from legacy.integration_numeric import compute_score
 from reward.self_reward import ResultsLogger
 from reward.self_reward import SelfRewardManager
 from utils.misc import make_dataclass_from_dict
@@ -47,7 +49,7 @@ from utils.misc import make_dataclass_from_dict
 @dataclass(frozen=True)
 class TTRLSpec:
     trees_dir: str
-    output_dir: str
+    data_output_dir: str
     num_eval: int
     pass_at_k_params: dict
 
@@ -115,12 +117,12 @@ def evaluate(
 
     correct = 0
     for response in responses:
-        is_correct = verify_response(response, base_question)
+        _, status = compute_score(response, base_question, num_tests=5, timeout_secs=10)
 
-        if is_correct:
+        if status == FormalStatus.OK:
             correct += 1
 
-    print(pass_at_k(N, correct, k))
+    return pass_at_k(N, correct, k)
 
 
 @hydra.main(config_path="configs", version_base=None)
@@ -133,19 +135,10 @@ def main(config):
     # Process each question directory
     flat_trees = flatten_trees_from_dir(ttrl_conf.trees_dir, max_time=0.001)
 
-    # Create parquet files
-    for flat_tree in flat_trees:
-        train_df, eval_df = make_split(flat_tree, ttrl_conf.num_eval)
-        output_dir = os.path.join(ttrl_conf.output_dir, flat_tree.tree_id)
-        os.makedirs(output_dir, exist_ok=True)
-
-        train_df.write_parquet(os.path.join(output_dir, "train.parquet"))
-        eval_df.write_parquet(os.path.join(output_dir, "eval.parquet"))
-
     for flat_tree in flat_trees:
         if not ray.is_initialized():
             print("Running for flat_tree", flat_tree.tree_id)
-            # this is for local ray cluster
+
             ray_context = ray.init(
                 runtime_env={
                     "env_vars": {
@@ -158,9 +151,16 @@ def main(config):
                 num_cpus=config.ray_init.num_cpus,
             )
 
-            output_dir = os.path.join(ttrl_conf.output_dir, flat_tree.tree_id)
+            # Create parquet files
+            output_dir = os.path.join(ttrl_conf.data_output_dir, flat_tree.tree_id)
+            os.makedirs(output_dir, exist_ok=True)
+
+            train_df, eval_df = make_split(flat_tree, ttrl_conf.num_eval)
             train_parquet = os.path.join(output_dir, "train.parquet")
             eval_parquet = os.path.join(output_dir, "eval.parquet")
+            train_df.write_parquet(train_parquet)
+            eval_df.write_parquet(eval_parquet)
+
             runner = TaskRunner.remote()
             ray.get(
                 runner.run.remote(
@@ -293,16 +293,38 @@ class TaskRunner:
         )
 
         trainer.init_workers()
-        trainer.fit()
 
         print("Computing metric pass@k")
-        evaluate(
-            flat_tree.base_question,
-            trainer.actor_rollout_wg,
-            tokenizer,
-            10,
-            ttrl_config.pass_at_k_params,
-        )
+        base_metrics: Dict[int, float] = {}
+        for k in [1, 5, 10, 20]:
+            base_metrics[k] = evaluate(
+                flat_tree.base_question,
+                trainer.actor_rollout_wg,
+                tokenizer,
+                k,
+                ttrl_config.pass_at_k_params,
+            )
+
+        pprint(base_metrics)
+        with open(os.path.join(exp_path, "base_metrics.json"), "w") as f:
+            json.dump(base_metrics, f)
+
+        trainer.fit()
+
+        print("Computing final metric pass@k")
+        final_metrics: Dict[int, float] = {}
+        for k in [1, 5, 10, 20]:
+            final_metrics[k] = evaluate(
+                flat_tree.base_question,
+                trainer.actor_rollout_wg,
+                tokenizer,
+                k,
+                ttrl_config.pass_at_k_params,
+            )
+
+        pprint(final_metrics)
+        with open(os.path.join(exp_path, "final_metrics.json"), "w") as f:
+            json.dump(final_metrics, f)
 
 
 if __name__ == "__main__":

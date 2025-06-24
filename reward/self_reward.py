@@ -130,17 +130,6 @@ class SelfRewardManager(SelfRewardBase):
         judge_queries.meta_info.update({"sampling_params": self.judge_sampling_params})
         judge_batch_ouput = self.actor_rollout_wg.generate_sequences(judge_queries)
 
-        # Hack to recover the right order from the generated batch.
-        # judge_responses_partial = decode_batch(judge_batch_ouput, self.tokenizer)
-        # judge_responses = []
-        # j = 0
-        # for ans in agent_answers:
-        #     if ans is not None:
-        #         judge_responses.append(judge_responses_partial[j])
-        #         j += 1
-        #     else:
-        #         judge_responses.append(None)
-
         judge_responses_partial = decode_batch(judge_batch_ouput, self.tokenizer)
         assert len(agent_answers) == len(judge_responses_partial)
         judge_responses = []
