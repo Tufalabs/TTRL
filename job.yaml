@@ -1,0 +1,63 @@
+resources:
+  image_id: kevinlopezandrade/nccl-tests:latest
+  cloud: kubernetes
+  accelerators: B200:4
+  cpus: 32
+  memory: 220
+
+workdir: .
+
+file_mounts:
+  ~/.env: ~/.env
+  ~/.netrc: ~/.netrc # For wandb login
+
+setup: |
+  conda config --set auto_activate_base false
+
+run: |
+  conda deactivate
+  export CHECKPOINTS_DIR=/mnt/checkpoints/$SKYPILOT_TASK_ID
+  export LOGS_DIR=/mnt/logs/$SKYPILOT_TASK_ID
+
+  uv sync
+  source .venv/bin/activate
+  python main.py --config-name=exp1 2>&1 | tee -i $LOGS_DIR/training.log
+
+config:
+  kubernetes:
+    provision_timeout: 20
+    pod_config:
+      spec:
+        nodeSelector:
+          node-type: queued
+        containers:
+          - volumeMounts:
+              - mountPath: /mnt/checkpoints
+                name: nfs-checkpoints
+              - mountPath: /mnt/logs
+                name: nfs-logs
+              - mountPath: /mnt/artifacts
+                name: nfs-artifacts
+              - mountPath: /mnt/builds
+                name: nfs-builds
+        volumes:
+          - name: nfs-checkpoints
+            nfs:
+              server: 10.100.0.253
+              path: /data/shared/checkpoints
+              readOnly: false
+          - name: nfs-logs
+            nfs:
+              server: 10.100.0.253
+              path: /data/shared/logs
+              readOnly: false
+          - name: nfs-artifacts
+            nfs:
+              server: 10.100.0.253
+              path: /data/shared/artifacts
+              readOnly: false
+          - name: nfs-builds
+            nfs:
+              server: 10.100.0.253
+              path: /data/shared/builds
+              readOnly: true

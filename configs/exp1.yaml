@@ -1,0 +1,104 @@
+defaults:
+  - base_ppo
+  - _self_
+
+ttrl:
+  trees_dir: questions/
+  data_output_dir: datasets/questions
+  num_eval: 16
+  pass_at_k_params:
+    n: 50
+    max_new_tokens: 4096
+    temperature': 1.0
+
+data:
+  reward_fn_key: data_source
+  max_prompt_length: 512
+  max_response_length: 4096
+  train_batch_size: 128
+  train_files: Null
+  val_files: Null
+
+actor_rollout_ref:
+  model:
+    path: Qwen/Qwen3-8B
+    enable_gradient_checkpointing: True
+    use_remove_padding: True
+  actor:
+    ppo_mini_batch_size: 64
+    ppo_micro_batch_size_per_gpu: 40
+    use_kl_loss: False
+    kl_loss_type: low_var_kl
+    kl_loss_coef: 0.0
+    entropy_coeff: 0
+    fsdp_config:
+      optimizer_offload: False
+      param_offload: False
+    optim:
+        lr: 1e-5
+  rollout:
+    n: 10
+    tensor_model_parallel_size: 2
+    name: sglang
+    gpu_memory_utilization: 0.6
+    log_prob_micro_batch_size_per_gpu: 40
+  ref:
+    log_prob_micro_batch_size_per_gpu: 40
+    fsdp_config:
+      param_offload: True
+
+trainer:
+  critic_warmup: 0
+  n_gpus_per_node: 4
+  nnodes: 1
+  total_epochs: 10
+  logger:
+    - console
+    - wandb
+  project_name: debug-TTRL
+  experiment_name: integration
+  test_freq: 4
+  val_before_train: True
+  default_local_dir: ${oc.env:CHECKPOINTS_DIR}/${trainer.project_name}/${trainer.experiment_name}
+
+algorithm:
+  use_kl_in_reward: False
+  adv_estimator: grpo
+
+tufa_custom:
+  val_logger:
+    logs_dir: ${oc.env:LOGS_DIR}
+  val_metrics:
+    JUDGE/OK: [mean, sum]
+    JUDGE/NO_OK: [mean, sum]
+    JUDGE/NO_SCORE_IN_TAGS: [mean, sum]
+    JUDGE/NO_AGENT_RESPONSE: [mean, sum]
+    JUDGE/NO_INP_IN_TAGS: [mean, sum]
+    JUDGE/ERROR: [mean, sum]
+    FORMAL/OK: [mean, sum]
+    FORMAL/NO_OK: [mean, sum]
+    FORMAL/NO_SOL_OR_NO_GT: [mean, sum]
+    FORMAL/NO_INP: [mean, sum]
+    FORMAL/ERROR: [mean, sum]
+    FORMAL/REWARD: [mean, sum]
+    LENGTH/AGENT_RESP/OK: [nanmean]
+    LENGTH/JUDGE/OK: [nanmean]
+    LENGTH/AGENT_RESP/NO_OK: [nanmean]
+    LENGTH/JUDGE/NO_OK: [nanmean]
+    LENGTH/AGENT_RESP/NO_SCORE_IN_TAGS: [nanmean]
+    LENGTH/JUDGE/NO_SCORE_IN_TAGS: [nanmean]
+    LENGTH/AGENT_RESP/NO_AGENT_RESPONSE: [nanmean]
+    LENGTH/JUDGE/NO_AGENT_RESPONSE: [nanmean]
+    LENGTH/AGENT_RESP/NO_INP_IN_TAGS: [nanmean]
+    LENGTH/JUDGE/NO_INP_IN_TAGS: [nanmean]
+    LENGTH/AGENT_RESP/ERROR: [nanmean]
+    LENGTH/JUDGE/ERROR: [nanmean]
+    LENGTH/FORMAL_AGENT_RESP/OK: [nanmean]
+    LENGTH/FORMAL_AGENT_RESP/NO_OK: [nanmean]
+    LENGTH/FORMAL_AGENT_RESP/NO_SOL_OR_NO_GT: [nanmean]
+    LENGTH/FORMAL_AGENT_RESP/NO_INP: [nanmean]
+    LENGTH/FORMAL_AGENT_RESP/ERROR: [nanmean]
+    CONFUSION_MATRIX/TP: [sum]
+    CONFUSION_MATRIX/FP: [sum]
+    CONFUSION_MATRIX/TN: [sum]
+    CONFUSION_MATRIX/FN: [sum]
