@@ -218,7 +218,7 @@ def flatten_trees_from_dir(trees_dir: str, max_time: float = 0.01) -> List[FlatT
         question_id = file.split(".")[0].split("_")[1]
         variants, num_timeout, dup_elements = flatten_tree(data, max_time)
 
-        res.append(FlatTree(base_question, question_id, variants[:100]))
+        res.append(FlatTree(base_question, question_id, variants))
 
         print(f"Variants: {dup_elements}")
         print(f"Deduplicated Variants: {len(variants)}")
