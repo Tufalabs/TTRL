@@ -21,7 +21,8 @@ from verl.workers.reward_manager.self_reward import to_chat_format
 from legacy.integration_numeric import FormalStatus
 from legacy.integration_numeric import compute_score
 from legacy.integration_utils import extract_candidate_solution
-from legacy.integration_utils import extract_integral
+# from legacy.integration_utils import extract_integral
+from data.format_for_ttrl import extract_integrand
 from legacy.llm_judge_utils import JudgeStatus
 from legacy.llm_judge_utils import extract_judge_score
 
@@ -144,9 +145,11 @@ class SelfRewardManager(SelfRewardBase):
 
     def verify_batch(self, data: DataProto):
         targets: List[str] = [
-            extract_integral(item.non_tensor_batch["reward_model"]["ground_truth"])
+            extract_integrand(item.non_tensor_batch["reward_model"]["ground_truth"])
             for item in data
         ]
+        targets = [item.integrand if item else None for item in targets]
+
         full_responses = decode_batch(data, self.tokenizer)
 
         # LLM Judge
@@ -203,7 +206,7 @@ class SelfRewardManager(SelfRewardBase):
             reward_extra_info[f"LENGTH/JUDGE/{status.name}"] = [np.nan] * len(data)
 
         for status in FormalStatus:
-            reward_extra_info[f"LENGTH/FORMAL_AGENT_RESP/{status.name}"] = [
+            reward_extra_info[f"LENGTH/AGENT_RESP/FORMAL_{status.name}"] = [
                 np.nan
             ] * len(data)
 
@@ -234,25 +237,25 @@ class SelfRewardManager(SelfRewardBase):
             formal_result = scores[i].formal_result
             reward_extra_info["FORMAL/REWARD"][i] = formal_result
             reward_extra_info[f"FORMAL/{formal_status.name}"][i] = 1
-            reward_extra_info[f"LENGTH/FORMAL_AGENT_RESP/{formal_status.name}"][
+            reward_extra_info[f"LENGTH/AGENT_RESP/FORMAL_{formal_status.name}"][
                 i
             ] = length
 
             # Compute confusion matrix.
 
-            if formal_result == FormalStatus.OK and judge_result == JudgeStatus.OK:
+            if formal_status == FormalStatus.OK and judge_status == JudgeStatus.OK:
                 reward_extra_info["CONFUSION_MATRIX/TP"][i] = 1
 
-            if formal_result == FormalStatus.NO_OK and judge_result == JudgeStatus.OK:
+            if formal_status == FormalStatus.NO_OK and judge_status == JudgeStatus.OK:
                 reward_extra_info["CONFUSION_MATRIX/FP"][i] = 1
 
             if (
-                formal_result == FormalStatus.NO_OK
-                and judge_result == JudgeStatus.NO_OK
+                formal_status == FormalStatus.NO_OK
+                and judge_status == JudgeStatus.NO_OK
             ):
                 reward_extra_info["CONFUSION_MATRIX/TN"][i] = 1
 
-            if formal_result == FormalStatus.OK and judge_result == JudgeStatus.NO_OK:
+            if formal_status == FormalStatus.OK and judge_status == JudgeStatus.NO_OK:
                 reward_extra_info["CONFUSION_MATRIX/FN"][i] = 1
 
         if self.val_logger:

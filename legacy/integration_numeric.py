@@ -14,7 +14,7 @@ class FormalStatus(Enum):
     OK = auto()
     NO_OK = auto()
     NO_SOL_OR_NO_GT = auto()
-    NO_INP = auto()
+    NO_INP_IN_TAGS = auto()
     ERROR = auto()
 
 
@@ -103,7 +103,7 @@ def compute_score(solution_str: str,
 
     candidate = extract_candidate_solution(solution_str, method=method)
     if not candidate:
-        return 0.0, FormalStatus.NO_INP
+        return 0.0, FormalStatus.NO_INP_IN_TAGS
 
     candidate = preprocess_candidate_solution(candidate)
     ground_truth_processed = preprocess_candidate_solution(ground_truth)
@@ -230,7 +230,7 @@ def compute_score(solution_str: str,
             else:
                 return format_score, FormalStatus.NO_OK
     except Exception as e:
-        # print(f"Error during computation: {str(e)}")
+        print(f"Error during computation: {str(e)}")
         return 0.0, FormalStatus.ERROR
 
 # Example usage:

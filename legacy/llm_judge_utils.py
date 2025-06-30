@@ -10,7 +10,7 @@ class JudgeStatus(Enum):
     OK = auto()
     NO_OK = auto()
     NO_SCORE_IN_TAGS = auto()
-    NO_AGENT_RESPONSE = auto()
+    NO_JUDGE_RESPONSE = auto()
     NO_INP_IN_TAGS = auto()
     ERROR = auto()
 
@@ -20,7 +20,7 @@ def extract_judge_score(response_str: str, method: str = 'strict'):
     Also filters out any candidate that directly contains an integration command.
     """
     if not response_str or not isinstance(response_str, str):
-        return 0, JudgeStatus.NO_AGENT_RESPONSE
+        return 0, JudgeStatus.NO_JUDGE_RESPONSE
         
     assert method in ['strict', 'flexible'], "Method must be 'strict' or 'flexible'"
     return_score = None
