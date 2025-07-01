@@ -19,6 +19,9 @@ run: |
   export CHECKPOINTS_DIR=/mnt/checkpoints/$SKYPILOT_TASK_ID
   export LOGS_DIR=/mnt/logs/$SKYPILOT_TASK_ID
 
+  mkdir -p $CHECKPOINTS_DIR
+  mkdir -p $LOGS_DIR
+
   uv sync
   source .venv/bin/activate
   python main.py --config-name=exp1 2>&1 | tee -i $LOGS_DIR/training.log
