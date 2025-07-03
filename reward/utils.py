@@ -93,16 +93,15 @@ def compute_score_indefinite(
         _x = sp.symbols("x")
         candidate_expr = sp.parse_expr(candidate, local_dict=SYMBOLS_DICT | {"x": _x})
         candidate_func = sp.lambdify(_x, candidate_expr, "mpmath")
+        positive_domain = candidate_expr.has(sp.log) or candidate_expr.has(sp.sqrt)
     except Exception:
         return format_score, FormalStatus.NO_SYMPY_EXPR
 
     integrand_expr, gt_var_sp = _parse_gt_expr(ground_truth, gt_var)
     integrand_func = sp.lambdify(gt_var_sp, integrand_expr, "mpmath")
+    gt_positive_domain = integrand_expr.has(sp.log) or integrand_expr.has(sp.sqrt)
 
-    if any(
-        expr.has(sp.log) or expr.has(sp.sqrt)
-        for expr in [candidate_expr, integrand_expr]
-    ):
+    if positive_domain or gt_positive_domain:
         domain_low, domain_high = 0.1, 10
     else:
         domain_low, domain_high = -10, 10
