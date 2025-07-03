@@ -1,10 +1,12 @@
 import json
+import math
 import os
 from dataclasses import dataclass
 from typing import Any
 from typing import Dict
 from typing import List
 from typing import NamedTuple
+from typing import Tuple
 from typing import cast
 
 import numpy as np
@@ -18,22 +20,29 @@ from verl.workers.reward_manager.self_reward import decode_batch
 from verl.workers.reward_manager.self_reward import encode_chat
 from verl.workers.reward_manager.self_reward import to_chat_format
 
-from legacy.integration_numeric import FormalStatus
-from legacy.integration_numeric import compute_score
-from legacy.integration_utils import extract_candidate_solution
-# from legacy.integration_utils import extract_integral
-from data.format_for_ttrl import extract_integrand
 from legacy.llm_judge_utils import JudgeStatus
 from legacy.llm_judge_utils import extract_judge_score
+from reward.utils import FormalStatus
+from reward.utils import compute_score_definite
+from reward.utils import compute_score_indefinite
+from reward.utils import extract_candidate_solution
 
 SYSTEM_PROMPT = "You are an expert at mathematical differentiation."
 
-JUDGE_PROMPT = (
+JUDGE_PROMPT_INDEFINITE = (
     "Please check if the following is a valid function: {response}. If it is,"
     " differentiate it and determine if it is functionally equal to {integrand}. Output"
     " <JUDGE_SCORE>1</JUDGE_SCORE> if they are equal. Output"
     " <JUDGE_SCORE>0</JUDGE_SCORE> if they are not equal or if it is not a valid"
     " function. Ignore constants of integration."
+)
+
+
+JUDGE_PROMPT_DEFINITE = (
+    "Please check if the following <answer>{response}</answer> is the solution to the"
+    " following definite integral: integrate({integrand}, {var}, {lb}, {ub}). Output"
+    " <JUDGE_SCORE>1</JUDGE_SCORE> if the proposed solution is correct. Output"
+    " <JUDGE_SCORE>0</JUDGE_SCORE> if they are not equal"
 )
 
 
@@ -110,12 +119,31 @@ class SelfRewardManager(SelfRewardBase):
         """
         self.actor_rollout_wg = cast(ActorRolloutRefWorker, actor_rollout_wg)
 
-    def llm_judge(self, agent_answers: List[str], targets: List[str]):
+    def llm_judge(
+        self,
+        agent_answers: List[str],
+        integrands: List[str],
+        gt_bounds: List[Tuple[str, float, float]],
+    ):
         # Hack so that we don't pass to SGLANG queries with empty inputs.
         judge_queries = []
-        for ans, target in zip(agent_answers, targets):
+        for ans, integrand, gt_bound in zip(agent_answers, integrands, gt_bounds):
+            gt_var, lb, ub = gt_bound
+
+            if -math.inf < lb and ub < math.inf:
+                is_definite = True
+            else:
+                is_definite = False
+
             if ans:
-                prompt = JUDGE_PROMPT.format(response=ans, integrand=target)
+                if is_definite:
+                    prompt = JUDGE_PROMPT_DEFINITE.format(
+                        response=ans, integrand=integrand, var=gt_var, lb=lb, ub=ub
+                    )
+                else:
+                    prompt = JUDGE_PROMPT_INDEFINITE.format(
+                        response=ans, integrand=integrand
+                    )
                 chat = to_chat_format(SYSTEM_PROMPT, prompt)
                 query = encode_chat(chat, self.tokenizer, 10000, "error")
                 judge_queries.append(query)
@@ -144,11 +172,13 @@ class SelfRewardManager(SelfRewardBase):
         return judge_responses
 
     def verify_batch(self, data: DataProto):
-        targets: List[str] = [
-            extract_integrand(item.non_tensor_batch["reward_model"]["ground_truth"])
-            for item in data
+        gt_integrands = [
+            item.non_tensor_batch["reward_model"]["ground_truth"] for item in data
         ]
-        targets = [item.integrand if item else None for item in targets]
+        gt_vars = [item.non_tensor_batch["extra_info"]["var"] for item in data]
+        lbs = [item.non_tensor_batch["extra_info"]["lb"] for item in data]
+        ubs = [item.non_tensor_batch["extra_info"]["ub"] for item in data]
+        gt_bounds = list(zip(gt_vars, lbs, ubs))
 
         full_responses = decode_batch(data, self.tokenizer)
 
@@ -156,14 +186,30 @@ class SelfRewardManager(SelfRewardBase):
         agent_answers = [
             extract_candidate_solution(response) for response in full_responses
         ]
-        judge_responses = self.llm_judge(agent_answers, targets)
+
+        judge_responses = self.llm_judge(agent_answers, gt_integrands, gt_bounds)
         assert len(judge_responses) == len(full_responses)
 
         scores: List[Score] = []
-        for response, agent_answer, judge_response, target in zip(
-            full_responses, agent_answers, judge_responses, targets
+        for response, agent_answer, judge_response, gt_integrand, gt_bound in zip(
+            full_responses, agent_answers, judge_responses, gt_integrands, gt_bounds
         ):
-            formal_result, formal_status = compute_score(response, target)
+            gt_var, lb, ub = gt_bound
+
+            if -math.inf < lb and ub < math.inf:
+                is_definite = True
+            else:
+                is_definite = False
+
+            if is_definite:
+                formal_result, formal_status = compute_score_definite(
+                    agent_answer, gt_integrand, lb, ub, gt_var
+                )
+            else:
+                formal_result, formal_status = compute_score_indefinite(
+                    agent_answer, gt_integrand, gt_var
+                )
+
             if agent_answer:
                 judge_result, judge_status = extract_judge_score(judge_response)
                 judge_result += 0.05  # Hardcoded in the CustomTinyZero repo.

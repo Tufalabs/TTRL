@@ -34,15 +34,22 @@ from verl.workers.reward_manager.self_reward import encode_chat
 from verl.workers.reward_manager.self_reward import to_chat_format
 
 from data.format_for_ttrl import SYSTEM_PROMPT
-from data.format_for_ttrl import TASK_PROMPT
+from data.format_for_ttrl import TASK_PROMPT_DEFINITE
+from data.format_for_ttrl import TASK_PROMPT_INDEFINITE
 from data.format_for_ttrl import FlatTree
 from data.format_for_ttrl import Variant
 from data.format_for_ttrl import flatten_trees_from_dir
+from data.format_for_ttrl import is_definite_integral_valid
+from data.format_for_ttrl import is_indefinite_integral_valid
+from data.format_for_ttrl import is_valid_sympy
+from data.format_for_ttrl import parse_variant
 from data.format_for_ttrl import to_verl_format
 from legacy.integration_numeric import FormalStatus
-from legacy.integration_numeric import compute_score
 from reward.self_reward import ResultsLogger
 from reward.self_reward import SelfRewardManager
+from reward.utils import compute_score_definite
+from reward.utils import compute_score_indefinite
+from reward.utils import extract_candidate_solution
 from utils.misc import make_dataclass_from_dict
 
 
@@ -59,6 +66,24 @@ class Config:
     ttrl: TTRLSpec
 
 
+def is_valid_variant(variant: Variant, max_timeout: float = 0.1):
+    valid_syntax, integrand_sp = is_valid_sympy(variant)
+
+    if not valid_syntax:
+        return False
+
+    if variant.is_definite:
+        valid_integral = is_definite_integral_valid(
+            integrand_sp, variant.var, variant.lb, variant.ub, max_timeout=max_timeout
+        )
+    else:
+        valid_integral = is_indefinite_integral_valid(
+            integrand_sp, variant.var, max_timeout=max_timeout
+        )
+
+    return valid_integral
+
+
 def make_split(flat_tree: FlatTree, num_eval: int):
     datums = []
     for index, variant in enumerate(flat_tree.variants):
@@ -67,9 +92,16 @@ def make_split(flat_tree: FlatTree, num_eval: int):
 
     eval_datums = []
     for index in range(num_eval):
-        datum = to_verl_format(
-            Variant(flat_tree.base_question, -1), index, flat_tree.tree_id
-        )
+        base_variant = parse_variant(flat_tree.base_question)
+        if base_variant is None:
+            raise ValueError("Could not parse eval integral.")
+
+        if not is_valid_variant(base_variant):
+            raise ValueError(
+                f"Formal verifier cannot evaluate {flat_tree.base_question}"
+            )
+
+        datum = to_verl_format(base_variant, index, flat_tree.tree_id)
         eval_datums.append(datum)
 
     train_df = pl.from_dicts(datums)
@@ -99,8 +131,26 @@ def evaluate(
     sampling_params: Dict[str, Any],
 ):
     assert sampling_params["n"] >= k
+    variant_parsed = parse_variant(base_question)
 
-    prompt = TASK_PROMPT.format(problem=base_question)
+    if variant_parsed is None:
+        raise ValueError(f"Could not parse the integral {base_question} for pass@k.")
+
+    if not is_valid_variant(variant_parsed):
+        raise ValueError(f"Formal verifier cannot find a solution for {base_question}")
+
+    if variant_parsed.is_definite:
+        prompt = TASK_PROMPT_DEFINITE.format(
+            integrand=variant_parsed.integrand,
+            var=variant_parsed.var,
+            lb=variant_parsed.lb,
+            ub=variant_parsed.ub,
+        )
+    else:
+        prompt = TASK_PROMPT_INDEFINITE.format(
+            integrand=variant_parsed.integrand, var=variant_parsed.var
+        )
+
     chat = to_chat_format(SYSTEM_PROMPT, prompt)
     query = encode_chat(chat, tokenizer, 10000, "error")
 
@@ -113,11 +163,25 @@ def evaluate(
     request.meta_info.update({"sampling_params": sampling_params})
     response_bath = actor_wg.generate_sequences(request)
     responses = decode_batch(response_bath, tokenizer)
+    responses = [extract_candidate_solution(response) for response in responses]
     N = len(responses)
 
     correct = 0
     for response in responses:
-        _, status = compute_score(response, base_question, num_tests=5, timeout_secs=10)
+        if variant_parsed.is_definite:
+            _, status = compute_score_definite(
+                candidate=response,
+                ground_truth=variant_parsed.integrand,
+                lb=variant_parsed.lb,
+                ub=variant_parsed.ub,
+                gt_var=variant_parsed.var,
+            )
+        else:
+            _, status = compute_score_indefinite(
+                candidate=response,
+                ground_truth=variant_parsed.integrand,
+                gt_var=variant_parsed.var,
+            )
 
         if status == FormalStatus.OK:
             correct += 1
@@ -184,6 +248,8 @@ class TaskRunner:
         flat_tree: FlatTree,
     ):
         """Run training for a single question and return checkpoint path."""
+        exp_name = config["trainer"]["experiment_name"]
+        config["trainer"]["experiment_name"] = f"{exp_name}_{flat_tree.tree_id}"
 
         pprint(OmegaConf.to_container(config, resolve=True))
         OmegaConf.resolve(config)
