@@ -44,9 +44,9 @@ from data.format_for_ttrl import is_indefinite_integral_valid
 from data.format_for_ttrl import is_valid_sympy
 from data.format_for_ttrl import parse_variant
 from data.format_for_ttrl import to_verl_format
-from legacy.integration_numeric import FormalStatus
 from reward.self_reward import ResultsLogger
 from reward.self_reward import SelfRewardManager
+from reward.utils import FormalStatus
 from reward.utils import compute_score_definite
 from reward.utils import compute_score_indefinite
 from reward.utils import extract_candidate_solution

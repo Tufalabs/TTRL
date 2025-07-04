@@ -212,7 +212,6 @@ class SelfRewardManager(SelfRewardBase):
 
             if agent_answer:
                 judge_result, judge_status = extract_judge_score(judge_response)
-                judge_result += 0.05  # Hardcoded in the CustomTinyZero repo.
             else:
                 judge_result = 0.0
                 judge_status = JudgeStatus.NO_INP_IN_TAGS

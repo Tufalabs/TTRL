@@ -293,7 +293,7 @@ def is_indefinite_integral_valid(
     try:
         with timeout(max_timeout):
             sol = mp.quad(sp.lambdify(var, integrand, "mpmath"), [lb, ub])
-            sp.N(sol)
+            complex(sp.N(sol))
     except TimeoutError:
         return False
     except Exception:
@@ -318,7 +318,7 @@ def is_definite_integral_valid(
             sol = mp.quad(
                 sp.lambdify(var, integrand, "mpmath"), [lower_bound, upper_bound]
             )
-            sp.N(sol)
+            complex(sp.N(sol))
 
     except TimeoutError:
         return False

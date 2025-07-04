@@ -4,6 +4,7 @@ from enum import Enum
 from enum import auto
 
 import mpmath as mp
+import numpy as np
 import sympy as sp
 
 from data.format_for_ttrl import SYMBOLS_DICT
@@ -48,18 +49,6 @@ def extract_candidate_solution(solution_str: str, method: str = "strict") -> str
     return candidate
 
 
-def is_close_to_ground_truth(candidate_val, ground_truth_val, tol):
-    try:
-        # Convert to float for numerical comparison
-        candidate_float = float(candidate_val)
-        ground_truth_float = float(ground_truth_val)
-
-        # Use relative tolerance instead of absolute
-        return abs((candidate_float - ground_truth_float) / ground_truth_float) <= tol
-    except (TypeError, ValueError, ZeroDivisionError):
-        return False
-
-
 def _parse_gt_expr(ground_truth: str, gt_var: str):
     gt_var_sp = sp.symbols(gt_var)
     try:
@@ -78,8 +67,9 @@ def compute_score_indefinite(
     ground_truth: str,
     gt_var: str,
     tol: float = 1e-2,
+    rtol: float = 1e-3,
     score: float = 1.0,
-    format_score: float = 0.05,
+    format_score: float = 0.00,
     num_tests: int = 10,
     max_timeout: float = 1,
 ):
@@ -120,7 +110,11 @@ def compute_score_indefinite(
                 candidate_diff = candidate_func(b_val) - candidate_func(a_val)
                 definite_integral = mp.quad(integrand_func, [a_val, b_val])
 
-            if not is_close_to_ground_truth(candidate_diff, definite_integral, tol):
+            # NOTE: We cast to complex to be in the safe side when computing
+            # the np.isclose.
+            if not np.isclose(
+                complex(candidate_diff), complex(definite_integral), atol=tol, rtol=rtol
+            ):
                 is_correct = False
                 break
 
@@ -143,8 +137,9 @@ def compute_score_definite(
     ub: float,
     gt_var: str,
     tol: float = 1e-2,
+    rtol: float = 1e-3,
     score: float = 1.0,
-    format_score: float = 0.05,
+    format_score: float = 0.00,
 ):
 
     if not candidate:
@@ -166,14 +161,17 @@ def compute_score_definite(
 
     # Evaluate candidate expression and computed integral numerically
     try:
-        candidate_val = sp.N(candidate_expr_scalar)
+        # NOTE: We cast to complex to be in the safe side when computing
+        # the np.isclose.
+        candidate_val = complex(sp.N(candidate_expr_scalar))
     except Exception as e:
         print(computed_def_int, candidate, e)
         return format_score, FormalStatus.ERROR_EVAL_EXPR
 
-    ground_truth_val = sp.N(computed_def_int)
+    # NOTE: In a valid variant this should not fail.
+    ground_truth_val = complex(sp.N(computed_def_int))
 
-    if is_close_to_ground_truth(candidate_val, ground_truth_val, tol):
+    if np.isclose(candidate_val, ground_truth_val, atol=tol, rtol=rtol):
         return score + format_score, FormalStatus.OK
     else:
         return format_score, FormalStatus.NO_OK
